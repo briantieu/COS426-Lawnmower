@@ -9,6 +9,7 @@
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SeedScene } from 'scenes';
+import LawnMower from './components/objects/LawnMower/LawnMower';
 
 // Initialize core ThreeJS components
 const scene = new SeedScene();
@@ -53,3 +54,10 @@ const windowResizeHandler = () => {
 };
 windowResizeHandler();
 window.addEventListener('resize', windowResizeHandler, false);
+
+const handleKeyDown = (event) => {
+    scene.getObjectByName('lawnMower').move(event);
+};
+
+// Set up lawn mower movement
+window.addEventListener('keydown', handleKeyDown, false);
