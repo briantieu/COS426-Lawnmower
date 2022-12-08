@@ -17,7 +17,7 @@ class Land extends Group {
         });
         */
 
-        const geometry = new PlaneGeometry(10, 10);
+        const geometry = new PlaneGeometry(1000, 1000);
         const material = new MeshBasicMaterial({color: 0x4B8E46, side: DoubleSide});
         const plane = new Mesh(geometry, material);
         plane.rotation.set(Math.PI / 2, 0, 0);

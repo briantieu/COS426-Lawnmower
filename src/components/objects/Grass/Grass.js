@@ -58,12 +58,14 @@ const leavesMaterial = new ShaderMaterial({
     side: DoubleSide
 });
 
+const size = 100;
+
 class Grass extends Group {
     constructor(parent) {
         // Call parent Group() constructor
         super();
 
-        const instanceNumber = 5000;
+        const instanceNumber = 1000 * size;
         const dummy = new Object3D();
         const geometry = new PlaneGeometry(0.1, 1, 1, 4);
 
@@ -74,8 +76,8 @@ class Grass extends Group {
         // Position and scale the grass blade instances randomly.
 
         for (let i = 0; i < instanceNumber; i++) {
-            dummy.position.set((Math.random() - 0.5) * 10, 0, (Math.random() - 0.5) * 10);
-            dummy.scale.setScalar(0.5 + Math.random() * 0.5);
+            dummy.position.set((Math.random() - 0.5) * size, 0, (Math.random() - 0.5) * size);
+            dummy.scale.setScalar(0.2 + Math.random() * 0.5);
             dummy.rotation.y = Math.random() * Math.PI;
             dummy.updateMatrix();
             instancedMesh.setMatrixAt(i, dummy.matrix);
