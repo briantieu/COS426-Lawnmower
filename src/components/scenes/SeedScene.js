@@ -28,8 +28,8 @@ class SeedScene extends Scene {
         const lawnMower = new LawnMower(this);
         this.add(land, flower, lights, grass, lawnMower);
 
-        // Populate GUI
-        this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
+        // // Populate GUI
+        // this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
     }
 
     addToUpdateList(object) {
