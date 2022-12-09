@@ -9,7 +9,6 @@
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SeedScene } from 'scenes';
-import LawnMower from './components/objects/LawnMower/LawnMower';
 
 // Initialize core ThreeJS components
 const scene = new SeedScene();
@@ -34,7 +33,7 @@ controls.enableDamping = true;
 controls.enablePan = false;
 controls.minDistance = 4;
 controls.maxDistance = 16;
-controls.maxPolarAngle = Math.PI / 2 - .25;
+controls.maxPolarAngle = Math.PI / 2 - 0.25;
 controls.update();
 
 // Render loop

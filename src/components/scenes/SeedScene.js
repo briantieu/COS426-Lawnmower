@@ -38,9 +38,8 @@ class SeedScene extends Scene {
 
     update(timeStamp) {
         const { rotationSpeed, updateList } = this.state;
-        this.rotation.y = (rotationSpeed * timeStamp) / 10000;
-
-        // Call update for each object in the updateList
+        // this.rotation.y = (rotationSpeed * timeStamp) / 10000;
+        // // Call update for each object in the updateList
         for (const obj of updateList) {
             obj.update(timeStamp);
         }
