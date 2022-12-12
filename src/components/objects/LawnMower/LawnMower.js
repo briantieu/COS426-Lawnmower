@@ -1,4 +1,4 @@
-import { Euler, Group, Vector3 } from 'three';
+import { Euler, Group, Object3D, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import MODEL from './lawnMower.gltf';
 
@@ -13,6 +13,13 @@ class LawnMower extends Group {
             velocity: 0,
             forward: new Vector3(0, 0, 1).normalize(),
         };
+
+        // Adds goal for camera offset to create chase camera
+        // Inspired by https://jsfiddle.net/Fyrestar/6519yedL/
+        const cameraOffset = new Object3D();
+        cameraOffset.position.set(0, 10, -20);
+        cameraOffset.name = 'cameraOffset';
+        this.add(cameraOffset);
 
         const loader = new GLTFLoader();
 
@@ -53,9 +60,9 @@ class LawnMower extends Group {
                 this.state.velocity = -this.state.maxSpeed;
             }
         } else if (event.key in rotMap) {
-            this.rotation.y += rotMap[event.key] * 0.05 * Math.PI;
+            this.rotation.y += rotMap[event.key] * 0.02 * Math.PI;
             this.state.forward.applyEuler(
-                new Euler(0, rotMap[event.key] * 0.05 * Math.PI, 0)
+                new Euler(0, rotMap[event.key] * 0.02 * Math.PI, 0)
             );
         }
     }
