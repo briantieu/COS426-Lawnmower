@@ -17,7 +17,7 @@ class LawnMower extends Group {
         // Adds goal for camera offset to create chase camera
         // Inspired by https://jsfiddle.net/Fyrestar/6519yedL/
         const cameraOffset = new Object3D();
-        cameraOffset.position.set(0, 10, -20);
+        cameraOffset.position.set(0, 10, -18);
         cameraOffset.name = 'cameraOffset';
         this.add(cameraOffset);
 
