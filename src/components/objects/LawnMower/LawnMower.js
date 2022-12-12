@@ -36,6 +36,7 @@ class LawnMower extends Group {
         if (event.key in keyMap) {
             this.position.add(keyMap[event.key].clone().multiplyScalar(scale));
         }
+        console.log(this.parent.children[3].cut(this.position, 5));
     }
 }
 
