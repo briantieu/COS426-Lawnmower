@@ -1,4 +1,4 @@
-import { Group, Vector3 } from 'three';
+import { Euler, Group, Object3D, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import MODEL from './lawnMower.gltf';
 
@@ -6,6 +6,20 @@ class LawnMower extends Group {
     constructor(parent) {
         // Call parent Group() constructor
         super();
+
+        this.state = {
+            scale: 0.01,
+            maxSpeed: 0.3,
+            velocity: 0,
+            forward: new Vector3(0, 0, 1).normalize(),
+        };
+
+        // Adds goal for camera offset to create chase camera
+        // Inspired by https://jsfiddle.net/Fyrestar/6519yedL/
+        const cameraOffset = new Object3D();
+        cameraOffset.position.set(0, 10, -18);
+        cameraOffset.name = 'cameraOffset';
+        this.add(cameraOffset);
 
         const loader = new GLTFLoader();
 
@@ -20,21 +34,36 @@ class LawnMower extends Group {
     }
 
     update(timestamp) {
-        return;
+        if (this.state.velocity !== 0) {
+            let movement = this.state.forward
+                .clone()
+                .multiplyScalar(this.state.velocity);
+            this.position.add(movement);
+        }
     }
 
     move(event) {
-        const keyMap = {
-            ArrowUp: new Vector3(0, 1, 0),
-            ArrowDown: new Vector3(0, -1, 0),
-            ArrowLeft: new Vector3(-1, 0, 0),
-            ArrowRight: new Vector3(1, 0, 0),
+        const accelMap = {
+            ArrowUp: 1,
+            ArrowDown: -1,
+        };
+        const rotMap = {
+            ArrowLeft: 1,
+            ArrowRight: -1,
         };
 
-        const scale = 1;
-
-        if (event.key in keyMap) {
-            this.position.add(keyMap[event.key].clone().multiplyScalar(scale));
+        if (event.key in accelMap) {
+            this.state.velocity += accelMap[event.key] * this.state.scale;
+            if (this.state.velocity > this.state.maxSpeed) {
+                this.state.velocity = this.state.maxSpeed;
+            } else if (this.state.velocity < -this.state.maxSpeed) {
+                this.state.velocity = -this.state.maxSpeed;
+            }
+        } else if (event.key in rotMap) {
+            this.rotation.y += rotMap[event.key] * 0.02 * Math.PI;
+            this.state.forward.applyEuler(
+                new Euler(0, rotMap[event.key] * 0.02 * Math.PI, 0)
+            );
         }
         console.log(this.parent.children[3].cut(this.position, 5));
     }
