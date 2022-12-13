@@ -102,7 +102,6 @@ document
 
 function updateScore(score){
     document.getElementById("score").innerHTML = score;
-    document.getElementById("scoreResult").innerHTML = score;
 }
 
 function countdownSequence() {
@@ -168,6 +167,7 @@ function endGame() {
     document.getElementById('timer').style.visibility = 'hidden';
     document.getElementById('score').style.visibility = 'hidden';
     document.getElementById('timer').innerHTML = '1:00';
+    document.getElementById("scoreResult").innerHTML = document.getElementById("score").innerHTML;
 }
 
 function playAgain(){
