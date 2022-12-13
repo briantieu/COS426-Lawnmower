@@ -10,7 +10,7 @@ class LawnMower extends Group {
 
         this.state = {
             scale: 0.01,
-            maxSpeed: 0.3,
+            maxSpeed: 0.24,
             velocity: 0,
             forward: new Vector3(0, 0, 1).normalize(),
         };
@@ -67,6 +67,7 @@ class LawnMower extends Group {
                 new Euler(0, rotMap[event.key] * 0.02 * Math.PI, 0)
             );
         }
+        console.log(this.state.velocity);
     }
 }
 
