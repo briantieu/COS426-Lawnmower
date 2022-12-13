@@ -72,6 +72,7 @@ class Grass extends Group {
         // Call parent Group() constructor
         super();
         this.grass = [];
+        this.startingBlades = 0;
         dummy = new Object3D();
 
         // Position and scale the grass blade instances randomly.
@@ -90,6 +91,7 @@ class Grass extends Group {
                 this.grass.push([x_pos, z_pos, index])
                 super.add(instancedMesh);
                 index += 1;
+                this.startingBlades += 1;
             }
         }
     }
@@ -123,6 +125,11 @@ class Grass extends Group {
             this.children[index] = instancedMesh;
         }
         */
+    }
+
+    getScore() {
+        let percentCut = (1 - (this.grass.length / this.startingBlades));
+        return Math.round(percentCut * 1000);
     }
 }
 

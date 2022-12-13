@@ -100,11 +100,9 @@ document
     .getElementById('playAgain')
     .addEventListener('click', playAgain);
 
-function updateScore(change){
-    let currScore = parseInt(document.getElementById("score").innerHTML);
-    currScore += change;
-    document.getElementById("score").innerHTML = currScore;
-    document.getElementById("scoreResult").innerHTML = currScore;
+function updateScore(score){
+    document.getElementById("score").innerHTML = score;
+    document.getElementById("scoreResult").innerHTML = score;
 }
 
 function countdownSequence() {
@@ -207,6 +205,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
     window.requestAnimationFrame(onAnimationFrameHandler);
+    updateScore(scene.children[3].getScore());
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
