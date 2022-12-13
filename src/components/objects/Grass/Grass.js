@@ -100,8 +100,7 @@ class Grass extends Group {
         //console.log(position);
         for (let i = 0; i < this.grass.length; i++) {
             let [x, z, index] = [this.grass[i][0], this.grass[i][1],  this.grass[i][2]];
-            let dist1 = Math.sqrt((x - position.x) * (x - position.x) + (z - position.z) * (z - position.z));
-            
+            let dist = Math.sqrt((x - position.x) * (x - position.x) + (z - position.z) * (z - position.z));
             if (dist < 0.7) {
                 const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
                 dummy.position.set(x, 0, z);

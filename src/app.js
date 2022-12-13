@@ -105,6 +105,9 @@ function updateScore(score){
 }
 
 function countdownSequence() {
+    var countdownbeep = new Audio('src/audio/countdownbeep.mp3');
+    var startbeep = new Audio('src/audio/start.mp3');
+    countdownbeep.play();
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('three').style.visibility = 'visible';
     setTimeout(() => {
@@ -112,13 +115,22 @@ function countdownSequence() {
         document.getElementById('two').style.visibility = 'visible';
     }, 1000);
     setTimeout(() => {
+        countdownbeep.play();
+    }, 1700);
+    setTimeout(() => {
         document.getElementById('two').style.visibility = 'hidden';
         document.getElementById('one').style.visibility = 'visible';
     }, 2000);
     setTimeout(() => {
+        countdownbeep.play();
+    }, 2700);
+    setTimeout(() => {
         document.getElementById('one').style.visibility = 'hidden';
         document.getElementById('go').style.visibility = 'visible';
     }, 3000);
+    setTimeout(() => {
+        startbeep.play();
+    }, 3600);
     setTimeout(() => {
         document.getElementById('go').style.visibility = 'hidden';
         startGame();
@@ -128,6 +140,8 @@ function countdownSequence() {
 function startGame() {
     document.getElementById('timer').style.visibility = 'visible';
     document.getElementById('score').style.visibility = 'visible';
+    var audio = new Audio('src/audio/background.mp3');
+    audio.play();
     startTimer();
     console.log('Game Started!!');
 }

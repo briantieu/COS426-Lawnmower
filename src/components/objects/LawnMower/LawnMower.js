@@ -45,6 +45,10 @@ class LawnMower extends Group {
     }
 
     move(event) {
+        if (this.state.velocity == 0) {
+            var soundeffect = new Audio('src/audio/lawnmower.mp3');
+            soundeffect.play();
+        }
         const accelMap = {
             ArrowUp: 1,
             ArrowDown: -1,
@@ -67,7 +71,6 @@ class LawnMower extends Group {
                 new Euler(0, rotMap[event.key] * 0.02 * Math.PI, 0)
             );
         }
-        console.log(this.state.velocity);
     }
 }
 
