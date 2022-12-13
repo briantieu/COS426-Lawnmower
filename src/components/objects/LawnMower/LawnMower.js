@@ -40,6 +40,7 @@ class LawnMower extends Group {
                 .clone()
                 .multiplyScalar(this.state.velocity);
             this.position.add(movement);
+            this.parent.children[3].cut(this.position, 5);
         }
     }
 
@@ -66,7 +67,6 @@ class LawnMower extends Group {
                 new Euler(0, rotMap[event.key] * 0.02 * Math.PI, 0)
             );
         }
-        console.log(this.parent.children[3].cut(this.position, 5));
     }
 }
 

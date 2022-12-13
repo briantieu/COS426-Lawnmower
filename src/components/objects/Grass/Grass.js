@@ -58,7 +58,9 @@ const leavesMaterial = new ShaderMaterial({
     side: DoubleSide
 });
 
-const box_width = 2;
+var cutGrass = []
+
+const box_width = 1;
 const grid_width = 100;
 const blades_per_box = 30;
 const geometry = new PlaneGeometry(0.1, 1, 1, 4);
@@ -91,18 +93,19 @@ class Grass extends Group {
 
     cut(position, radius) {
         //console.log(position);
-        let [x, z] = [Math.floor(position.x / box_width), Math.floor(position.z / box_width)];
-        //console.log(x, z);
-        let index = (x + (grid_width / 2 / box_width)) * (grid_width / box_width) + (grid_width / box_width) * (z + (grid_width / 2 / box_width))
+        console.log(this.children.length);
+        let index = Math.floor((position.x + (grid_width / 2)) / box_width) * (grid_width / box_width) + Math.floor((position.z + (grid_width / 2)) / box_width);
         const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
-        for (let j = 0; j < blades_per_box; j++) {
-            dummy.position.set(x + (Math.random() - 0.5) * box_width, 0, z + (Math.random() - 0.5) * box_width);
-            dummy.scale.setScalar(1 + Math.random() * 0.5);
+        for (let j = 0; j < 1; j++) {
+            dummy.position.set(position.x, 0, position.z);
+            dummy.scale.setScalar(0);
             dummy.rotation.y = Math.random() * Math.PI;
             dummy.updateMatrix();
             instancedMesh.setMatrixAt(j, dummy.matrix);
         }
-        this.children[index] = instancedMesh;
+        if (index < this.children.length) {
+            this.children[index] = instancedMesh;
+        }
     }
 }
 
