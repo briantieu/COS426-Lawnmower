@@ -170,12 +170,12 @@ function endGame() {
     document.getElementById('timer').style.visibility = 'hidden';
     document.getElementById('score').style.visibility = 'hidden';
     document.getElementById('timer').innerHTML = '1:00';
-    document.getElementById('score').innerHTML = '0';
 }
 
 function playAgain(){
     document.getElementById("resultsScreen").style.display = 'none';
     document.getElementById("starterScreen").style.display = 'flex';
+    document.getElementById('score').innerHTML = '0';
 }
 
 // Set up controls
