@@ -58,43 +58,59 @@ const leavesMaterial = new ShaderMaterial({
     side: DoubleSide
 });
 
-var cutGrass = []
 
-const box_width = 1;
-const grid_width = 100;
-const blades_per_box = 30;
+const box_width = 0.25;
+const grid_width = 50;
+const blades_per_box = 1;
 const geometry = new PlaneGeometry(0.1, 1, 1, 4);
 geometry.translate(0, 0.5, 0); // move grass blade geometry lowest point at 0.
 var dummy;
 
 class Grass extends Group {
+
     constructor(parent) {
         // Call parent Group() constructor
         super();
-
+        this.grass = [];
         dummy = new Object3D();
 
         // Position and scale the grass blade instances randomly.
 
+        let index = 0;
         for (let x = -grid_width / 2; x < grid_width / 2; x += box_width) {
             for (let z = -grid_width / 2; z < grid_width / 2; z += box_width) {
                 const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
-                for (let j = 0; j < blades_per_box; j++) {
-                    dummy.position.set(x + (Math.random() - 0.5) * box_width, 0, z + (Math.random() - 0.5) * box_width);
-                    dummy.scale.setScalar(0.2 + Math.random() * 0.5);
-                    dummy.rotation.y = Math.random() * Math.PI;
-                    dummy.updateMatrix();
-                    instancedMesh.setMatrixAt(j, dummy.matrix);
-                }
+                let x_pos = x + (Math.random() - 0.5) * box_width;
+                let z_pos = z + (Math.random() - 0.5) * box_width;
+                dummy.position.set(x_pos, 0, z_pos);
+                dummy.scale.setScalar(0.2 + Math.random() * 0.5);
+                dummy.rotation.y = Math.random() * Math.PI;
+                dummy.updateMatrix();
+                instancedMesh.setMatrixAt(0, dummy.matrix);
+                this.grass.push([x_pos, z_pos, index])
                 super.add(instancedMesh);
+                index += 1;
             }
         }
     }
 
     cut(position, radius) {
         //console.log(position);
-        console.log(this.children.length);
-        let index = Math.floor((position.x + (grid_width / 2)) / box_width) * (grid_width / box_width) + Math.floor((position.z + (grid_width / 2)) / box_width);
+        for (let i = 0; i < this.grass.length; i++) {
+            let [x, z, index] = [this.grass[i][0], this.grass[i][1],  this.grass[i][2]];
+            let dist = Math.sqrt((x - position.x) * (x - position.x) + (z - position.z) * (z - position.z));
+            if (dist < 0.5) {
+                const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
+                dummy.position.set(position.x, 0, position.z);
+                dummy.scale.setScalar(0);
+                dummy.rotation.y = Math.random() * Math.PI;
+                dummy.updateMatrix();
+                instancedMesh.setMatrixAt(0, dummy.matrix);
+                this.children[index] = instancedMesh;
+                this.grass.splice(i, 1);
+            }
+        }
+        /*let index = Math.floor((position.x + (grid_width / 2)) / box_width) * (grid_width / box_width) + Math.floor((position.z + (grid_width / 2)) / box_width);
         const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
         for (let j = 0; j < 1; j++) {
             dummy.position.set(position.x, 0, position.z);
@@ -106,6 +122,7 @@ class Grass extends Group {
         if (index < this.children.length) {
             this.children[index] = instancedMesh;
         }
+        */
     }
 }
 
