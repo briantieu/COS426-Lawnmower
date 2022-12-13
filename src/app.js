@@ -43,7 +43,7 @@ div.style.top = '0';
 div.style.fontFamily = 'Arial';
 div.style.width = '100vw';
 div.style.height = '100vh';
-div.style.boxShadow= '0px 0px 40px 8px black';
+div.style.boxShadow = '0px 0px 40px 8px black';
 div.innerHTML = `
 <div style="padding: 20px; margin-left: auto; margin-right: auto; height: fit-content; width: 50vw; color: white; font-size: 20px; background-color: #404040">
     <p style='color: orange; font-weight: bolder; font-size: 40px'>
@@ -66,7 +66,7 @@ div.innerHTML = `
 `;
 
 const countdown = document.createElement('div');
-countdown.innerHTML=`
+countdown.innerHTML = `
 <span id="three" style="width: 100vw; text-align: center; font-family: arial; visibility: hidden; color: red; font-size: 300px; line-height: 300px; z-index: 100; position: fixed; left: 0; top: 25%;">3</span>
 <span id="two" style="width: 100vw; text-align: center; font-family: arial; visibility: hidden; color: red; font-size: 300px; line-height: 300px; z-index: 100; position: fixed; left: 0; top: 25%;">2</span>
 <span id="one" style="width: 100vw; text-align: center; font-family: arial; visibility: hidden; color: red; font-size: 300px; line-height: 300px; z-index: 100; position: fixed; left: 0; top: 25%;">1</span>
@@ -106,33 +106,33 @@ function startTimer() {
     var presentTime = document.getElementById('timer').innerHTML;
     var timeArray = presentTime.split(/[:]+/);
     var m = timeArray[0];
-    var s = checkSecond((timeArray[1] - 1));
-    if(s == 59){
-        m = m-1;
+    var s = checkSecond(timeArray[1] - 1);
+    if (s == 59) {
+        m = m - 1;
     }
-    if(m < 0){
-        console.log("Game Over")
-        return
+    if (m < 0) {
+        console.log('Game Over');
+        return;
     }
-    
-    document.getElementById('timer').innerHTML = m + ":" + s;
-    setTimeout(startTimer, 1000);
-  }
-  
-  function checkSecond(sec) {
-    if (sec < 10 && sec >= 0) {
-        sec = "0" + sec
-    }; // add zero in front of numbers < 10
-    if (sec < 0) {
-        sec = "59"
-    };
-    return sec;
-  }
 
-function startGame(){
-    document.getElementById("timer").style.visibility="visible";
+    document.getElementById('timer').innerHTML = m + ':' + s;
+    setTimeout(startTimer, 1000);
+}
+
+function checkSecond(sec) {
+    if (sec < 10 && sec >= 0) {
+        sec = '0' + sec;
+    } // add zero in front of numbers < 10
+    if (sec < 0) {
+        sec = '59';
+    }
+    return sec;
+}
+
+function startGame() {
+    document.getElementById('timer').style.visibility = 'visible';
     startTimer();
-    console.log("Game Started!!");
+    console.log('Game Started!!');
 }
 
 // Set up controls

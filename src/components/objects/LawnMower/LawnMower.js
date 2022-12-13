@@ -1,6 +1,7 @@
 import { Euler, Group, Object3D, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import MODEL from './lawnMower.gltf';
+// Model from https://sketchfab.com/3d-models/lawn-mower-low-poly-be7ab00cce174ef1b6045017493591c6
+import MODEL from './lawnMower_2.gltf';
 
 class LawnMower extends Group {
     constructor(parent) {
@@ -17,7 +18,7 @@ class LawnMower extends Group {
         // Adds goal for camera offset to create chase camera
         // Inspired by https://jsfiddle.net/Fyrestar/6519yedL/
         const cameraOffset = new Object3D();
-        cameraOffset.position.set(0, 10, -18);
+        cameraOffset.position.set(0, 11, -18);
         cameraOffset.name = 'cameraOffset';
         this.add(cameraOffset);
 
