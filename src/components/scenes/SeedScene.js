@@ -5,6 +5,7 @@ import { BasicLights } from 'lights';
 import { Grass } from '../objects/Grass';
 import LawnMower from '../objects/LawnMower/LawnMower';
 import { Trees } from '../objects/Trees';
+import { Farm } from '../objects/Farm';
 
 class SeedScene extends Scene {
     constructor() {
@@ -27,8 +28,9 @@ class SeedScene extends Scene {
         const lights = new BasicLights();
         const grass = new Grass();
         const trees = new Trees();
+        const farm  = new Farm();
         const lawnMower = new LawnMower(this);
-        this.add(land, flower, lights, grass, trees, lawnMower);
+        this.add(land, flower, lights, grass, trees, lawnMower, farm);
 
         // // Populate GUI
         // this.state.gui.add(this.state, 'rotationSpeed', -5, 5);

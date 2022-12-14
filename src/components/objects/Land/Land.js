@@ -38,6 +38,7 @@ class Land extends Group {
             map: texture,
             side: DoubleSide,
         });
+        
         const plane = new Mesh(geometry, material);
         plane.rotation.set(Math.PI / 2, 0, 0);
         this.add(plane);
