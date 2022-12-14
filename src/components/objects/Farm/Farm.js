@@ -5,6 +5,13 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils.js';
 import MODEL from './scene.gltf';
+require('./scene.bin');
+require('./textures/lambert4_baseColor.jpeg');
+require('./textures/lambert4_metallicRoughness.png');
+require('./textures/lambert4_normal.png');
+require('./textures/lambert3_baseColor.jpeg');
+require('./textures/lambert3_metallicRoughness.png')
+require('./textures/lambert3_normal.png')
 
 class Farm extends Group {
     constructor() {
