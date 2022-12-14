@@ -219,7 +219,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
     window.requestAnimationFrame(onAnimationFrameHandler);
-    updateScore(scene.children[3].getScore());
+    updateScore(scene.children[3].getScore() - scene.children[7].getRockPenalty());
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
 

@@ -99,7 +99,7 @@ class Grass extends Group {
             }
         }
     }
-    
+
     addToGrassCutMap(key, value) {
         this.grassMap[key] = this.grassMap[key] || [];
         this.grassMap[key].push(value);
@@ -150,7 +150,7 @@ class Grass extends Group {
             console.log("Problem: " + indices.length);
         }
         return indices;
-    } 
+    }
 
     cut(position, radius) {
         //console.log(position);

@@ -40,7 +40,8 @@ class LawnMower extends Group {
                 .clone()
                 .multiplyScalar(this.state.velocity);
             this.position.add(movement);
-            this.parent.children[3].cut(this.position, 5);
+            this.parent.children[3].cut(this.position, 5); // cut grass
+            this.parent.children[7].collide(this.position); // collide with rocks
         }
     }
 
