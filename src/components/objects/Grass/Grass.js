@@ -80,8 +80,8 @@ class Grass extends Group {
         // Position and scale the grass blade instances randomly.
 
         let index = 0;
-        for (let x = -grid_width / 2; x < grid_width / 2; x += box_width) {
-            for (let z = -grid_width / 2; z < grid_width / 2; z += box_width) {
+        for (let x = -grid_width / 2 + (box_width / 2); x < grid_width / 2 - (box_width / 2); x += box_width) {
+            for (let z = -grid_width / 2 + (box_width / 2); z < grid_width / 2 - (box_width / 2); z += box_width) {
                 const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
                 let x_pos = x + (Math.random() - 0.5) * box_width;
                 let z_pos = z + (Math.random() - 0.5) * box_width;
@@ -93,7 +93,7 @@ class Grass extends Group {
                 this.grass.push([x_pos, z_pos, index])
                 super.add(instancedMesh);
                 index += 1;
-                var grassMapIndex = Math.floor((x_pos + (grid_width / 2)) / cut_box_width) * (grid_width / cut_box_width) + Math.floor((z_pos + (grid_width / 2)) / cut_box_width);
+                var grassMapIndex = this.cutIndexFromXZ(x_pos, z_pos);
                 this.addToGrassCutMap(grassMapIndex, [x_pos, z_pos, index])
                 this.startingBlades += 1;
             }
@@ -115,16 +115,39 @@ class Grass extends Group {
         indices.push(baseIndex);
         let indicesInRow = grid_width / cut_box_width;
         if (baseIndex % indicesInRow != indicesInRow - 1) {
+            // Top
             indices.push(baseIndex + 1);
         }
         if (baseIndex % indicesInRow != 0) {
+            // Bottom
             indices.push(baseIndex - 1);
         }
         if (baseIndex >= indicesInRow) {
+            // Left
             indices.push(baseIndex - indicesInRow);
         }
         if (baseIndex < indicesInRow * (indicesInRow - 1)) {
+            // Right
             indices.push(baseIndex + indicesInRow);
+        }
+        if (baseIndex < indicesInRow * (indicesInRow - 1) && baseIndex % indicesInRow != 0) {
+            // Bottom right
+            indices.push(baseIndex + indicesInRow - 1);
+        }
+        if (baseIndex < indicesInRow * (indicesInRow - 1) && baseIndex % indicesInRow != indicesInRow - 1) {
+            // Top right
+            indices.push(baseIndex + indicesInRow + 1);
+        }
+        if (baseIndex >= indicesInRow && baseIndex % indicesInRow != 0) {
+            // Bottom left
+            indices.push(baseIndex - indicesInRow + 1);
+        }
+        if (baseIndex >= indicesInRow && baseIndex % indicesInRow != indicesInRow - 1) {
+            // Top left
+            indices.push(baseIndex - indicesInRow - 1);
+        }
+        if (indices.length < 9) {
+            console.log("Problem: " + indices.length);
         }
         return indices;
     } 
@@ -140,7 +163,7 @@ class Grass extends Group {
         for (let i = 0; i < cutIndicesBlades.length; i++) {
             let [x, z, index] = [cutIndicesBlades[i][0], cutIndicesBlades[i][1], cutIndicesBlades[i][2]];
             let dist = Math.sqrt((x - position.x) * (x - position.x) + (z - position.z) * (z - position.z));
-            if (dist < 0.6) {
+            if (dist < 0.7) {
                 const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
                 dummy.position.set(x, 0, z);
                 dummy.scale.setScalar(0);
