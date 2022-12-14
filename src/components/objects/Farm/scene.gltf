@@ -192,29 +192,29 @@
   "buffers": [
     {
       "byteLength": 3795720,
-      "uri": "src/components/objects/Farm/scene.bin"
+      "uri": "scene.bin"
       
 
     }
   ],
   "images": [
     {
-      "uri": "src/components/objects/Farm/textures/lambert4_baseColor.jpeg"
+      "uri": "textures/lambert4_baseColor.jpeg"
     },
     {
-      "uri": "src/components/objects/Farm/textures/lambert4_metallicRoughness.png"
+      "uri": "textures/lambert4_metallicRoughness.png"
     },
     {
-      "uri": "src/components/objects/Farm/textures/lambert4_normal.png"
+      "uri": "textures/lambert4_normal.png"
     },
     {
-      "uri": "src/components/objects/Farm/textures/lambert3_baseColor.jpeg"
+      "uri": "textures/lambert3_baseColor.jpeg"
     },
     {
-      "uri": "src/components/objects/Farm/textures/lambert3_metallicRoughness.png"
+      "uri": "textures/lambert3_metallicRoughness.png"
     },
     {
-      "uri": "src/components/objects/Farm/textures/lambert3_normal.png"
+      "uri": "textures/lambert3_normal.png"
     }
   ],
   "materials": [
