@@ -60,14 +60,15 @@ const leavesMaterial = new ShaderMaterial({
     side: DoubleSide
 });
 
-const size = 100;
+const outer_size = 40;
+const inner_size = 30;
+const instanceNumber = 30;
 
 class Trees extends Group {
     constructor(parent) {
         // Call parent Group() constructor
         super();
 
-        const instanceNumber = 0.25 * size;
         const dummy = new Object3D();
 
         const geometry = new Geometry()
@@ -86,17 +87,22 @@ class Trees extends Group {
 
         // geometry.translate(0, 0, 0); // move grass blade geometry lowest point at 0.
         const instancedMesh = new InstancedMesh(geometry, leavesMaterial, instanceNumber);
-        super.add(instancedMesh);
 
         // Position and scale the grass blade instances randomly.
 
         for (let i = 0; i < instanceNumber; i++) {
-            dummy.position.set((Math.random() - 0.5) * size, 0, (Math.random() - 0.5) * size);
-            dummy.scale.setScalar(1 + Math.random() * 0.2);
-            dummy.rotation.y = Math.random() * Math.PI;
-            dummy.updateMatrix();
-            instancedMesh.setMatrixAt(i, dummy.matrix);
+          let [x, z] = [(Math.random() - 0.5) * 2 * outer_size, (Math.random() - 0.5) * 2 * outer_size];
+          if (x <= inner_size && x >= -inner_size && z <= inner_size && z >= -inner_size) {
+            i--;
+            continue;
+          }
+          dummy.position.set(x, 0, z);
+          dummy.scale.setScalar(2 + Math.random());
+          dummy.rotation.y = Math.random() * Math.PI;
+          dummy.updateMatrix();
+          instancedMesh.setMatrixAt(i, dummy.matrix);
         }
+        super.add(instancedMesh);
     }
 }
 

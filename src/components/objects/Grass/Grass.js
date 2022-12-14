@@ -62,6 +62,7 @@ const leavesMaterial = new ShaderMaterial({
 const box_width = 0.25;
 const grid_width = 50;
 const blades_per_box = 1;
+const cut_box_width = 1;
 const geometry = new PlaneGeometry(0.1, 1, 1, 4);
 geometry.translate(0, 0.5, 0); // move grass blade geometry lowest point at 0.
 var dummy;
@@ -73,6 +74,7 @@ class Grass extends Group {
         super();
         this.grass = [];
         this.startingBlades = 0;
+        this.grassMap = {};
         dummy = new Object3D();
 
         // Position and scale the grass blade instances randomly.
@@ -91,17 +93,54 @@ class Grass extends Group {
                 this.grass.push([x_pos, z_pos, index])
                 super.add(instancedMesh);
                 index += 1;
+                var grassMapIndex = Math.floor((x_pos + (grid_width / 2)) / cut_box_width) * (grid_width / cut_box_width) + Math.floor((z_pos + (grid_width / 2)) / cut_box_width);
+                this.addToGrassCutMap(grassMapIndex, [x_pos, z_pos, index])
                 this.startingBlades += 1;
             }
         }
     }
+    
+    addToGrassCutMap(key, value) {
+        this.grassMap[key] = this.grassMap[key] || [];
+        this.grassMap[key].push(value);
+    }
+
+    cutIndexFromXZ(x, z) {
+        return Math.floor((x + (grid_width / 2)) / cut_box_width) * (grid_width / cut_box_width) + Math.floor((z + (grid_width / 2)) / cut_box_width);
+    }
+
+    cutIndicesFromXZ(x, z) {
+        var indices = [];
+        let baseIndex = this.cutIndexFromXZ(x, z);
+        indices.push(baseIndex);
+        let indicesInRow = grid_width / cut_box_width;
+        if (baseIndex % indicesInRow != indicesInRow - 1) {
+            indices.push(baseIndex + 1);
+        }
+        if (baseIndex % indicesInRow != 0) {
+            indices.push(baseIndex - 1);
+        }
+        if (baseIndex >= indicesInRow) {
+            indices.push(baseIndex - indicesInRow);
+        }
+        if (baseIndex < indicesInRow * (indicesInRow - 1)) {
+            indices.push(baseIndex + indicesInRow);
+        }
+        return indices;
+    } 
 
     cut(position, radius) {
         //console.log(position);
-        for (let i = 0; i < this.grass.length; i++) {
-            let [x, z, index] = [this.grass[i][0], this.grass[i][1],  this.grass[i][2]];
+        let cutIndices = this.cutIndicesFromXZ(position.x, position.z);
+        var cutIndicesBlades = [];
+        for (let i = 0; i < cutIndices.length; i++) {
+            let blades = this.grassMap[cutIndices[i]];
+            cutIndicesBlades = cutIndicesBlades.concat(blades);
+        }
+        for (let i = 0; i < cutIndicesBlades.length; i++) {
+            let [x, z, index] = [cutIndicesBlades[i][0], cutIndicesBlades[i][1], cutIndicesBlades[i][2]];
             let dist = Math.sqrt((x - position.x) * (x - position.x) + (z - position.z) * (z - position.z));
-            if (dist < 0.7) {
+            if (dist < 0.6) {
                 const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
                 dummy.position.set(x, 0, z);
                 dummy.scale.setScalar(0);
