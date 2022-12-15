@@ -10,12 +10,8 @@ class LawnMower extends Group {
         super();
 
         this.state = {
-<<<<<<< HEAD
             prevPosition: new Vector3(0,0,0),
-            scale: 0.01,
-=======
             velocityScale: 0.01,
->>>>>>> a2d38c02d2e912ecf530ecb3105da1faba359467
             maxSpeed: 0.24,
             velocity: 0,
             forward: new Vector3(0, 0, 1).normalize(),
