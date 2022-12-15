@@ -26,7 +26,7 @@ class Farm extends Group {
         this.name = 'farm';
         // cow link: 'https://r105.threejsfundamentals.org/threejs/resources/models/animals/Cow.gltf'
         loader.load(MODEL, (gltf) => {
-            gltf.scene.position.z += 60;
+            gltf.scene.position.z += 70;
             gltf.scene.rotation.y += Math.PI;
             gltf.scene.scale.setScalar(2.8);
             this.add(gltf.scene);    
