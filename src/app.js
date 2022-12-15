@@ -39,7 +39,7 @@ const starterScreen = `
 <div style="border-radius: 20px; padding: 20px; margin-left: auto; margin-right: auto; height: fit-content; width: 50vw; color: white; font-size: 20px; background-color: rgb(53, 67, 53); box-shadow: 0px 0px 40px 8px black">
     <div id="starterScreen" style="align-content: center; display: flex; flex-direction: column;">
         <p style='font-family: Cursive;  color: rgb(255, 255, 255); font-weight: bolder; font-size: 45px; padding-top: 10px; margin: 0;'>
-            <i>Welcome to Lawnmower Lunacy</i>
+            Welcome to <i style="color: rgb(142, 116, 76)">Lawnmower Lunacy</i>
         </p>
         <p style='text-align: left'><b style="font-size: 25px;">Gameplay Directions:</b>
             <ul style='margin-top: -10px; text-align: left'>
@@ -98,11 +98,18 @@ countdown.innerHTML = `
 <span id="go" style="width: 100vw; text-align: center; font-family: arial; visibility: hidden; color: red; font-size: 300px; line-height: 300px; z-index: 100; position: fixed; left: 0; top: 25%;">Go!!</span>
 <p id="timer" style="font-family: arial; position: fixed; visibility: hidden; top: -40px; left: 30px; font-size: 60px; font-weight: bolder; background-color: #7E997E; padding: 5px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: black">1:00</p>
 <p id="score" style="font-family: arial; position: fixed; visibility: hidden; top: 30px; left: 30px; font-size: 60px; font-weight: bolder; background-color: #7E997E; padding: 5px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: white;">0</p>
+
+<div id="camera-toggle" style="position: fixed; top: 20px; right: 20px; width: fit-content; margin: auto; height: 40px; text-align: center; background-color: rgb(53, 67, 53); padding: 10px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: white;">
+    <label for="ball" style="line-height: 30px; position: relative; top: -5px; color: white; font-size: 30px; margin-right: 10px; font-family: arial;">Toggle Camera View</label>
+    <label id="switch" style="margin-top: 5px; display: inline-block; height: 30px; width: 60px; background: rgb(126, 153, 126); border-radius: 1em;">
+        <input style="position: absolute; opacity: 0" id="toggle-input" type="checkbox" />
+        <div id="ball" style="height: 20px; width: 20px; border-radius: 1em; background: rgb(255, 255, 255); margin: 5px; box-shadow: 0 0.1em 0.3em rgba(0,0,0,0.3); -webkit-transition: all 300ms; -moz-transition: all 300ms; transition: all 300ms;"></div>
+    </label>
+</div>
 `;
 
 document.body.append(div);
 document.body.append(countdown);
-console.log(document);
 
 document
     .getElementById('countdownSequence')
@@ -111,6 +118,26 @@ document
 document
     .getElementById('playAgain')
     .addEventListener('click', playAgain);
+
+document
+    .getElementById('toggle-input')
+    .addEventListener('click', toggleCamera);
+
+function toggleCamera(){
+    let checkbox = document.getElementById("toggle-input");
+    if(checkbox.checked == true){
+        document.getElementById("ball").style.webkitTransform =  "translate3d(150%, 0, 0)";
+        document.getElementById("ball").style.MozTransform =  "translate3d(150%, 0, 0)";
+        document.getElementById("ball").style.transform =  "translate3d(150%, 0, 0)";
+        document.getElementById("switch").style.backgroundColor = "black";
+    }
+    else{
+        document.getElementById("ball").style.webkitTransform =  "translate3d(0, 0, 0)";
+        document.getElementById("ball").style.MozTransform =  "translate3d(0, 0, 0)";
+        document.getElementById("ball").style.transform =  "translate3d(0, 0, 0)";
+        document.getElementById("switch").style.backgroundColor = "rgb(126, 153, 126)";
+    }
+}
 
 function updateScore(score){
     document.getElementById("score").innerHTML = score;
