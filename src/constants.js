@@ -27,6 +27,7 @@ export const TREES_INNER_EDGE = 40;
 export const NUM_TREES = 50;
 
 export const ROCKS_INSTANCE_MULTIPLIER = 10;
+export const LAWNMOWER_RADIUS = 0.75;
 
 
 
