@@ -13,6 +13,7 @@ class LawnMower extends Group {
             maxSpeed: 0.24,
             velocity: 0,
             forward: new Vector3(0, 0, 1).normalize(),
+            cutRadius: 1
         };
 
         // Adds goal for camera offset to create chase camera
@@ -40,8 +41,9 @@ class LawnMower extends Group {
                 .clone()
                 .multiplyScalar(this.state.velocity);
             this.position.add(movement);
-            this.parent.children[3].cut(this.position, 5); // cut grass
+            this.parent.children[3].cut(this.position, this.state.cutRadius); // cut grass
             this.parent.children[7].collide(this.position); // collide with rocks
+            this.parent.children[8].cut(this.position, this.state.cutRadius) // cut weeds
         }
     }
 

@@ -163,7 +163,7 @@ class Grass extends Group {
         for (let i = 0; i < cutIndicesBlades.length; i++) {
             let [x, z, index] = [cutIndicesBlades[i][0], cutIndicesBlades[i][1], cutIndicesBlades[i][2]];
             let dist = Math.sqrt((x - position.x) * (x - position.x) + (z - position.z) * (z - position.z));
-            if (dist < 0.7) {
+            if (dist < radius) {
                 const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
                 dummy.position.set(x, 0, z);
                 dummy.scale.setScalar(0);
