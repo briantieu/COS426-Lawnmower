@@ -40,6 +40,16 @@ const vertexShader = `
 	}
 `;
 
+const fragmentShaderGreen = `
+  varying vec2 vUv;
+
+  void main() {
+  	vec3 baseColor = vec3(0.0, 1.0, 0.0);
+    float clarity = ( vUv.y * 0.5 ) + 0.5;
+    gl_FragColor = vec4( baseColor * clarity, 1 );
+  }
+`;
+
 const fragmentShader = `
   varying vec2 vUv;
 
@@ -56,9 +66,16 @@ const uniforms = {
 
 const leavesMaterial = new ShaderMaterial({
     vertexShader,
-    fragmentShader,
+    fragmentShaderGreen,
     uniforms,
     side: DoubleSide
+});
+
+const trunkMaterial = new ShaderMaterial({
+  vertexShader,
+  fragmentShader,
+  uniforms,
+  side: DoubleSide
 });
 
 const outer_size = constants.TREES_OUTER_EDGE;
