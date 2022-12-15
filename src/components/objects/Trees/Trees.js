@@ -44,21 +44,21 @@ const fragmentShaderGreen = `
   varying vec2 vUv;
 
   void main() {
-  	vec3 baseColor = vec3(0.0, 1.0, 0.0);
+  	vec3 baseColor = vec3(0.3, 1.0, 0.1);
     float clarity = ( vUv.y * 0.5 ) + 0.5;
     gl_FragColor = vec4( baseColor * clarity, 1 );
   }
 `;
 
-const fragmentShader = `
-  varying vec2 vUv;
+// const fragmentShader = `
+//   varying vec2 vUv;
 
-  void main() {
-  	vec3 baseColor = vec3(0.15, 0.82, 0.13);
-    float clarity = ( vUv.y * 0.2 ) + 0.4;
-    gl_FragColor = vec4( baseColor * clarity, 1 );
-  }
-`;
+//   void main() {
+//   	vec3 baseColor = vec3(0.15, 0.82, 0.13);
+//     float clarity = ( vUv.y * 0.2 ) + 0.4;
+//     gl_FragColor = vec4( baseColor * clarity, 1 );
+//   }
+// `;
 
 const uniforms = {
 	time: { value: 0 }
@@ -71,12 +71,12 @@ const leavesMaterial = new ShaderMaterial({
     side: DoubleSide
 });
 
-const trunkMaterial = new ShaderMaterial({
-  vertexShader,
-  fragmentShader,
-  uniforms,
-  side: DoubleSide
-});
+// const trunkMaterial = new ShaderMaterial({
+//   vertexShader,
+//   fragmentShader,
+//   uniforms,
+//   side: DoubleSide
+// });
 
 const outer_size = constants.TREES_OUTER_EDGE;
 const inner_size = constants.TREES_INNER_EDGE;

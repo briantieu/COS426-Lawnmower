@@ -52,11 +52,11 @@ const starterScreen = `
         </p>
         <div style="margin-top: -20px; display: flex; flex-direction: row; gap: 10px">
             <label style="display: inline; width: fit-content;" for="difficulty">Difficulty (1 - 20):</label>
-            <input style="width: 100px; height: 25px; display: inline;" type="number" value="1" id="difficulty" name="difficulty" min="1" max="20">
+            <input style="width: 100px; height: 25px; display: inline;" type="number" value="10" id="difficulty" name="difficulty" min="1" max="20">
         </div>
         <div style="margin-top: 20px; display: flex; flex-direction: row; gap: 10px">
             <label style="display: inline; width: fit-content;" for="levelofdetail">Level of Detail (1 - 3):</label>
-            <input style="width: 100px; height: 25px; display: inline;" type="number" value="1" id="levelofdetail" name="levelofdetail" min="1" max="3">
+            <input style="width: 100px; height: 25px; display: inline;" type="number" value="3" id="levelofdetail" name="levelofdetail" min="1" max="3">
         </div>
         <br>
         <button id="countdownSequence" style="box-shadow: 0px 0px 10px 2px rgb(255, 255, 255); border: none; border-radius: 8px; margin-left: auto; margin-right: auto; cursor: pointer; background-color: rgb(142, 116, 76); color: white; border: none; width: fit-content; height: 50px; font-size: 25px;">
