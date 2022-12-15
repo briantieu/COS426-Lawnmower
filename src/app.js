@@ -67,8 +67,8 @@ const starterScreen = `
 </div>
 `
 div.id = 'startScreen';
-// div.style.display = 'none'; // comment out this line to show the homescreen
-div.style.display = 'flex';
+div.style.display = 'none'; // comment out this line to show the homescreen
+// div.style.display = 'flex';
 div.style.flexDirection = 'column';
 div.style.justifyContent = 'center';
 div.style.position = 'fixed';

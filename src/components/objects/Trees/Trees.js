@@ -84,15 +84,13 @@ class Trees extends Group {
         cone3.translate(0,5.5,0)
         geometry.merge(cone3)
 
-
         // geometry.translate(0, 0, 0); // move grass blade geometry lowest point at 0.
         const instancedMesh = new InstancedMesh(geometry, leavesMaterial, instanceNumber);
 
         // Position and scale the grass blade instances randomly.
-
         for (let i = 0; i < instanceNumber; i++) {
           let [x, z] = [(Math.random() - 0.5) * 2 * outer_size, (Math.random() - 0.5) * 2 * outer_size];
-          if (x <= inner_size && x >= -inner_size && z <= inner_size && z >= -inner_size) {
+          if (x <= inner_size && x >= -inner_size && z <= inner_size + 40 && z >= -inner_size) {
             i--;
             continue;
           }
