@@ -50,15 +50,20 @@ class LawnMower extends Group {
     move(event) {
         if (this.state.velocity == 0) {
             var soundeffect = new Audio('src/audio/lawnmower.mp3');
+            soundeffect.volume = 0.7;
             soundeffect.play();
         }
         const accelMap = {
             ArrowUp: 1,
             ArrowDown: -1,
+            w: 1,
+            s: -1,
         };
         const rotMap = {
             ArrowLeft: 1,
             ArrowRight: -1,
+            a: 1,
+            d: -1,
         };
 
         if (event.key in accelMap) {
