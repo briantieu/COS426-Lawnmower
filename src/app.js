@@ -140,7 +140,7 @@ function toggleCamera(){
 }
 
 function updateScore(score){
-    document.getElementById("score").innerHTML = score;
+    document.getElementById("score").innerHTML = Math.round(score / 10.0) * 10;
 }
 
 function countdownSequence() {
