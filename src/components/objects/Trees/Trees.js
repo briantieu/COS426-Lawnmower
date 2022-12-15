@@ -3,6 +3,7 @@ import { Group, ShaderMaterial, DoubleSide, Object3D, Geometry, PlaneGeometry, S
 import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
+import * as constants from '../../../constants.js';
 
 /**
  * SOURCE: https://jsfiddle.net/felixmariotto/hvrg721n/
@@ -60,9 +61,9 @@ const leavesMaterial = new ShaderMaterial({
     side: DoubleSide
 });
 
-const outer_size = 40;
-const inner_size = 30;
-const instanceNumber = 30;
+const outer_size = constants.TREES_OUTER_EDGE;
+const inner_size = constants.TREES_INNER_EDGE;
+const instanceNumber = constants.NUM_TREES;
 
 class Trees extends Group {
     constructor(parent) {

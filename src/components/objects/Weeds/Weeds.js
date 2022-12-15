@@ -1,6 +1,7 @@
 import { Group, ShaderMaterial, DoubleSide, Object3D, PlaneGeometry, InstancedMesh, FrontSide, Vector3, VertexColors} from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
+import * as constants from '../../../constants.js';
 
 /**
  * SOURCE: https://jsfiddle.net/felixmariotto/hvrg721n/
@@ -59,9 +60,11 @@ const leavesMaterial = new ShaderMaterial({
 });
 
 
-const box_width = 0.25;
-const grid_width = 50;
-const blades_per_box = 1;
+const box_width = constants.GRASS_BLADE_BOX_WIDTH;
+const grid_width = constants.FIELD_WIDTH;
+const blades_per_box = constants.GRASS_BLADES_PER_BOX;
+const numWeedPatches = constants.NUM_WEED_PATCHES;
+const weedPatchSize = constants.WEED_PATCH_SIZE;
 const geometry = new PlaneGeometry(0.1, 8, 1, 4);
 geometry.translate(0, 0.5, 0); // move grass blade geometry lowest point at 0.
 var dummy;
@@ -76,12 +79,14 @@ class Weeds extends Group {
         // Position and scale the grass blade instances randomly.
 
         this.weedPositions = []
-        const numWeedPatches = 10
-        const weedPatchSize = 2
         for (let i = 0; i < numWeedPatches; i++) {
             const xRand = (Math.random() - 0.5) * grid_width
             const zRand = (Math.random() - 0.5) * grid_width
-            this.weedPositions.push(new Vector3(xRand, 0, zRand))
+            if (Math.sqrt(xRand ** 2 + zRand ** 2) < 3) {
+                i--;
+            } else {
+                this.weedPositions.push(new Vector3(xRand, 0, zRand))
+            }
         }
 
 
@@ -132,14 +137,14 @@ class Weeds extends Group {
 
         // enlargen lawnmower on hit
         this.weedPositions.forEach((weedPosition) => {
-            // console.log(this.parent.children[5].state.cutRadius)
+            // console.log(this.parent.children[4].state.cutRadius)
             if (position.distanceTo(weedPosition) <= 2) {
-                this.parent.children[5].scale.addScalar(0.2)
-                this.parent.children[5].state.cutRadius += 0.2
+                this.parent.children[constants.LAWNMOWER_INDEX].scale.addScalar(0.2)
+                this.parent.children[constants.LAWNMOWER_INDEX].state.cutRadius += 0.2
 
                 setTimeout(() => {
-                    this.parent.children[5].scale.subScalar(0.2)
-                    this.parent.children[5].state.cutRadius -= 0.2
+                    this.parent.children[constants.LAWNMOWER_INDEX].scale.subScalar(0.2)
+                    this.parent.children[constants.LAWNMOWER_INDEX].state.cutRadius -= 0.2
                 }, 10000)
                 this.weedPositions = this.weedPositions.filter((weedPos) => position.distanceTo(weedPos) > 2.1)
 

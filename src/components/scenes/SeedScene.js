@@ -9,6 +9,7 @@ import { Farm } from '../objects/Farm';
 import { Rocks } from '../objects/Rocks';
 import { Weeds } from '../objects/Weeds';
 import { Fence } from '../objects/Fence';
+import * as constants from '../../constants.js';
 
 class SeedScene extends Scene {
     constructor(props) {
@@ -23,7 +24,7 @@ class SeedScene extends Scene {
         };
 
         // Set background to a nice color
-        this.background = new Color(0x7ec0ee);
+        this.background = new Color(constants.BACKGROUND_COLOR);
 
         // Add meshes to scene
         const land = new Land();
@@ -36,7 +37,8 @@ class SeedScene extends Scene {
         const rocks = new Rocks(props);
         const weeds = new Weeds();
         const fence = new Fence();
-        this.add(land, flower, lights, grass, trees, lawnMower, farm, rocks, weeds, fence);
+        // If this following line is changed, need to change constants.js to reflect it
+        this.add(land, lights, grass, trees, lawnMower, farm, rocks, weeds, fence);
 
         // // Populate GUI
         // this.state.gui.add(this.state, 'rotationSpeed', -5, 5);

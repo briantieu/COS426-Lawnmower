@@ -5,6 +5,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils.js';
 import MODEL from './scene.gltf';
+import * as constants from '../../../constants.js';
+
 require('./scene.bin');
 require('./textures/lambert4_baseColor.jpeg');
 require('./textures/lambert4_metallicRoughness.png');

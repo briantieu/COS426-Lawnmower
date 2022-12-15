@@ -2,6 +2,7 @@ import { Euler, Group, Object3D, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 // Model from https://sketchfab.com/3d-models/lawn-mower-low-poly-be7ab00cce174ef1b6045017493591c6
 import MODEL from './lawnMower_2.gltf';
+import * as constants from '../../../constants.js';
 
 class LawnMower extends Group {
     constructor(parent) {
@@ -41,17 +42,17 @@ class LawnMower extends Group {
                 .clone()
                 .multiplyScalar(this.state.velocity);
             this.position.add(movement);
-            this.parent.children[3].cut(this.position, this.state.cutRadius); // cut grass
-            this.parent.children[7].collide(this.position); // collide with rocks
-            this.parent.children[8].cut(this.position, this.state.cutRadius) // cut weeds
-            this.parent.children[9].collide(this.position);
+            this.parent.children[constants.GRASS_INDEX].cut(this.position, this.state.cutRadius); // cut grass
+            this.parent.children[constants.ROCKS_INDEX].collide(this.position); // collide with rocks
+            this.parent.children[constants.WEEDS_INDEX].cut(this.position, this.state.cutRadius) // cut weeds
+            this.parent.children[constants.FENCE_INDEX].collide(this.position);
         }
     }
 
     move(event) {
         if (this.state.velocity == 0) {
             var soundeffect = new Audio('src/audio/lawnmower.mp3');
-            soundeffect.volume = 0.7;
+            soundeffect.volume = 0.3;
             soundeffect.play();
         }
         const accelMap = {

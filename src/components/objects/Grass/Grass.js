@@ -1,6 +1,8 @@
 import { Group, ShaderMaterial, DoubleSide, Object3D, PlaneGeometry, InstancedMesh} from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
+import * as constants from '../../../constants.js';
+
 
 /**
  * SOURCE: https://jsfiddle.net/felixmariotto/hvrg721n/
@@ -59,10 +61,10 @@ const leavesMaterial = new ShaderMaterial({
 });
 
 
-const box_width = 0.25;
-const grid_width = 50;
-const blades_per_box = 1;
-const cut_box_width = 1;
+const box_width = constants.GRASS_BLADE_BOX_WIDTH;
+const grid_width = constants.FIELD_WIDTH;
+const blades_per_box = constants.GRASS_BLADES_PER_BOX;
+const cut_box_width = constants.GRASS_CUT_BOX_WIDTH;
 const geometry = new PlaneGeometry(0.1, 1, 1, 4);
 geometry.translate(0, 0.5, 0); // move grass blade geometry lowest point at 0.
 var dummy;

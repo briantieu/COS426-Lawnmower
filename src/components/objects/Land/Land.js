@@ -9,6 +9,8 @@ import {
 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import MODEL from './land.gltf';
+import * as constants from '../../../constants.js';
+
 require('./textures/grass-texture.jpg')
 
 class Land extends Group {

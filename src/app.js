@@ -186,6 +186,12 @@ function countdownSequence() {
 function startGame() {
     document.getElementById('timer').style.visibility = 'visible';
     document.getElementById('score').style.visibility = 'visible';
+    const handleKeyDown = (event) => {
+        scene.getObjectByName('lawnMower').move(event);
+    };
+    
+    // Set up lawn mower movement
+    window.addEventListener('keydown', handleKeyDown, false);
     var audio = new Audio('src/audio/background.mp3');
     audio.play();
     startTimer();
@@ -268,7 +274,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
     
-    updateScore(scene.children[3].getScore() - scene.children[7].getRockPenalty());
+    updateScore(scene.children[2].getScore() - scene.children[6].getRockPenalty());
     }
     window.requestAnimationFrame(onAnimationFrameHandler);
 };
@@ -283,10 +289,3 @@ const windowResizeHandler = () => {
 };
 windowResizeHandler();
 window.addEventListener('resize', windowResizeHandler, false);
-
-const handleKeyDown = (event) => {
-    scene.getObjectByName('lawnMower').move(event);
-};
-
-// Set up lawn mower movement
-window.addEventListener('keydown', handleKeyDown, false);

@@ -1,4 +1,5 @@
 import { Group, SpotLight, AmbientLight, HemisphereLight } from 'three';
+import * as constants from '../../constants.js';
 
 class BasicLights extends Group {
     constructor(...args) {

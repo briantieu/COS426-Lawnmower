@@ -3,6 +3,7 @@ import { Group, Mesh, ShaderMaterial, DoubleSide, Vector3, Object3D, Geometry, P
 import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
+import * as constants from '../../../constants.js';
 
 /**
  * SOURCE: https://jsfiddle.net/felixmariotto/hvrg721n/
@@ -60,8 +61,8 @@ const leavesMaterial = new ShaderMaterial({
     side: DoubleSide
 });
 
-const size = 50
-const instanceMultiplier = 15;
+const size = constants.FIELD_WIDTH
+const instanceMultiplier = constants.ROCKS_INSTANCE_MULTIPLIER;
 
 class Rocks extends Group {
     constructor(difficulty) {
@@ -88,6 +89,14 @@ class Rocks extends Group {
         const instanceNumber = difficulty * instanceMultiplier;
 
         for (let i = 0; i < instanceNumber; i++) {
+            const posX = (Math.random() - 0.5) * size
+            const posY = 0
+            const posZ = (Math.random() - 0.5) * size
+            if (Math.sqrt(posX ** 2 + posZ ** 2) < 3) {
+              i--;
+              continue;
+            }
+
             const geometry = new Geometry()
             const rad1 = Math.random()*0.3+0.5;
             const rad2 = Math.random()*0.4+0.3;
@@ -108,11 +117,7 @@ class Rocks extends Group {
 
             jitter(geometry, 0.15)
 
-            const mesh = new Mesh(geometry, leavesMaterial)
-
-            const posX = (Math.random() - 0.5) * size
-            const posY = 0
-            const posZ = (Math.random() - 0.5) * size
+            const mesh = new Mesh(geometry, leavesMaterial);
             mesh.position.set(posX, posY, posZ);
 
             this.centerPoints.push(new Vector3(posX, posY, posZ))
@@ -138,8 +143,8 @@ class Rocks extends Group {
         if (this.centerPoints[i].distanceTo(position) <= this.radii[i]) {
           const newPosition = position.clone().sub(this.centerPoints[i]).normalize().multiplyScalar(this.radii[i] + 3)
           const newPositionFlat = new Vector3(newPosition.x, 0, newPosition.z)
-          this.parent.children[5].position.add(newPositionFlat)
-          this.parent.children[5].state.velocity = 0
+          this.parent.children[constants.LAWNMOWER_INDEX].position.add(newPositionFlat)
+          this.parent.children[constants.LAWNMOWER_INDEX].state.velocity = 0
           this.collisionCount += 1
         }
       }
