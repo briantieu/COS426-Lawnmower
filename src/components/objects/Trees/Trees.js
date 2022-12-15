@@ -40,12 +40,12 @@ const vertexShader = `
 	}
 `;
 
-const fragmentShaderGreen = `
+const fragmentShader = `
   varying vec2 vUv;
 
   void main() {
-  	vec3 baseColor = vec3(0.3, 1.0, 0.1);
-    float clarity = ( vUv.y * 0.5 ) + 0.5;
+  	vec3 baseColor = vec3(0.15, 0.82, 0.13);
+    float clarity = ( vUv.y * 0.2 ) + 0.2;
     gl_FragColor = vec4( baseColor * clarity, 1 );
   }
 `;
@@ -66,7 +66,7 @@ const uniforms = {
 
 const leavesMaterial = new ShaderMaterial({
     vertexShader,
-    fragmentShaderGreen,
+    fragmentShader,
     uniforms,
     side: DoubleSide
 });
