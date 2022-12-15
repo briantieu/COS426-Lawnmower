@@ -1,4 +1,4 @@
-import { Group, ShaderMaterial, DoubleSide, Object3D, PlaneGeometry, InstancedMesh} from 'three';
+import { Group, ShaderMaterial, DoubleSide, Object3D, PlaneGeometry, InstancedMesh, Clock } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import * as constants from '../../../constants.js';
@@ -75,6 +75,7 @@ class Grass extends Group {
         // Call parent Group() constructor
         super();
         this.grass = [];
+        this.clock = new Clock();
         this.startingBlades = 0;
         this.grassMap = {};
         dummy = new Object3D();
@@ -100,6 +101,7 @@ class Grass extends Group {
                 this.startingBlades += 1;
             }
         }
+        //this.animate();
     }
 
     addToGrassCutMap(key, value) {
@@ -195,6 +197,18 @@ class Grass extends Group {
         let percentCut = (1 - (this.grass.length / this.startingBlades));
         return Math.round(percentCut * 1000);
     }
+
+    /*
+    animate() {
+      // Hand a time variable to vertex shader for wind displacement.
+      leavesMaterial.uniforms.time.value = this.clock.getElapsedTime();
+      leavesMaterial.uniformsNeedUpdate = true;
+      debugger;
+      this.parent.requestAnimationFrame(this.parent.animate);
+      this.parent.renderer.render(this.parent.scene, this.parent.camera);
+    };
+    */
+    
 }
 
 export default Grass;
