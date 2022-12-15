@@ -61,18 +61,14 @@ const leavesMaterial = new ShaderMaterial({
 });
 
 const size = 50
-const instanceNumber = 30;
+const instanceMultiplier = 15;
 
 class Rocks extends Group {
-    constructor(parent) {
+    constructor(difficulty) {
         // Call parent Group() constructor
         super();
 
         // const dummy = new Object3D();
-
-
-
-
 
         // const instancedMesh = new InstancedMesh(geometry, leavesMaterial, instanceNumber);
         this.collisionCount = 0
@@ -89,7 +85,7 @@ class Rocks extends Group {
             v.z += map(Math.random(),0,1,-per,per)
         })
 
-
+        const instanceNumber = difficulty * instanceMultiplier;
 
         for (let i = 0; i < instanceNumber; i++) {
             const geometry = new Geometry()

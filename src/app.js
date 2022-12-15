@@ -15,9 +15,10 @@ require('./audio/background.mp3')
 require('./audio/lawnmower.mp3')
 
 // Initialize core ThreeJS components
-const scene = new SeedScene();
+let scene;
 const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
+let difficultyRegistered = false;
 
 // Set up camera
 const relativeCameraOffset = new Vector3(0, 10, -20);
@@ -47,6 +48,8 @@ const starterScreen = `
                 <li>Cut as much grass as you can before time runs out!!</li>
             </ul>
         </p>
+        <label for="difficulty">Difficulty (between 1 and 5):</label>
+        <input type="number" id="difficulty" name="difficulty" min="1" max="5">
         <button id="countdownSequence" style="margin-left: auto; margin-right: auto; cursor: pointer; background-color: red; color: white; border: none; width: fit-content; height: 50px; font-size: 25px;">
             Mow That Lawn!!
         </button>
@@ -114,6 +117,8 @@ function countdownSequence() {
     countdownbeep.play();
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('three').style.visibility = 'visible';
+    difficultyRegistered = true;
+    scene = new SeedScene(parseInt(document.getElementById("difficulty").value));
     setTimeout(() => {
         document.getElementById('three').style.visibility = 'hidden';
         document.getElementById('two').style.visibility = 'visible';
@@ -189,9 +194,10 @@ function endGame() {
 }
 
 function playAgain(){
-    document.getElementById("resultsScreen").style.display = 'none';
-    document.getElementById("starterScreen").style.display = 'flex';
-    document.getElementById('score').innerHTML = '0';
+    // document.getElementById("resultsScreen").style.display = 'none';
+    // document.getElementById("starterScreen").style.display = 'flex';
+    // document.getElementById('score').innerHTML = '0';
+    window.location.reload(true);
 }
 
 // Set up controls
@@ -205,10 +211,10 @@ function playAgain(){
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
+    if(difficultyRegistered){
     // Camera controls inspired by https://jsfiddle.net/Fyrestar/6519yedL/
     const lawnMower = scene.getObjectByName('lawnMower');
     const temp = new Vector3(0, 0, 0);
-
     // Follows LM with fixed world POV, but not behind LM
     // temp.setFromMatrixPosition(lawnMower.matrixWorld).add(relativeCameraOffset);
 
@@ -220,10 +226,13 @@ const onAnimationFrameHandler = (timeStamp) => {
     camera.lookAt(lawnMower.position);
 
     // controls.update();
+
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
-    window.requestAnimationFrame(onAnimationFrameHandler);
+    
     updateScore(scene.children[3].getScore() - scene.children[7].getRockPenalty());
+    }
+    window.requestAnimationFrame(onAnimationFrameHandler);
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
