@@ -5,3 +5,4 @@ export * from './LawnMower';
 export * from './Farm';
 export * from './Rocks';
 export * from './Weeds';
+export * from './Fence';
