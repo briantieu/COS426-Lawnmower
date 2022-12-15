@@ -101,7 +101,7 @@ countdown.innerHTML = `
 <span id="one" style="width: 100vw; text-align: center; font-family: arial; visibility: hidden; color: red; font-size: 300px; line-height: 300px; z-index: 100; position: fixed; left: 0; top: 25%;">1</span>
 <span id="go" style="width: 100vw; text-align: center; font-family: arial; visibility: hidden; color: red; font-size: 300px; line-height: 300px; z-index: 100; position: fixed; left: 0; top: 25%;">Go!!</span>
 <p id="timer" style="font-family: arial; position: fixed; visibility: hidden; top: -40px; left: 30px; font-size: 60px; font-weight: bolder; background-color: #7E997E; padding: 5px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: black">1:00</p>
-<p id="score" style="font-family: arial; position: fixed; visibility: hidden; top: 30px; left: 30px; font-size: 60px; font-weight: bolder; background-color: #7E997E; padding: 5px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: white;">0</p>
+<p id="score" style="font-family: arial; position: fixed; visibility: hidden; top: 28px; left: 30px; font-size: 60px; font-weight: bolder; background-color: #7E997E; padding: 5px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: white;">0</p>
 
 <div id="camera-toggle" style="position: fixed; top: 20px; right: 20px; width: fit-content; margin: auto; height: 40px; text-align: center; background-color: rgb(53, 67, 53); padding: 10px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: white;">
     <label for="ball" style="line-height: 30px; position: relative; top: -5px; color: white; font-size: 30px; margin-right: 10px; font-family: arial;">Toggle Camera View</label>
@@ -208,7 +208,9 @@ function startGame() {
         this.play();
     }, false);
     audio.play();
-    startTimer();
+    setTimeout(() => {
+        startTimer();
+    }, 3000);
     console.log('Game Started!!');
 }
 
