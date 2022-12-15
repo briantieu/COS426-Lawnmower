@@ -44,6 +44,7 @@ class LawnMower extends Group {
             this.parent.children[3].cut(this.position, this.state.cutRadius); // cut grass
             this.parent.children[7].collide(this.position); // collide with rocks
             this.parent.children[8].cut(this.position, this.state.cutRadius) // cut weeds
+            this.parent.children[9].collide(this.position);
         }
     }
 

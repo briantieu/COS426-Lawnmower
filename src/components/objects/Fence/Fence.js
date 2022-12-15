@@ -17,6 +17,8 @@ class Fence extends Group {
         const loader = new GLTFLoader();
 
         this.name = 'fences';
+
+        // Fence model created by Silas
         loader.load(MODEL, (gltf) => {
             this.add(gltf.scene);
             gltf.scene.scale.setScalar(0.55)
@@ -26,9 +28,24 @@ class Fence extends Group {
         this.position.z = 26;
     }
 
-    // update(timeStamp) {
-    //     this.position.add(0);
-    // }
+    collide(position) {
+        if (position.z > 25) {
+            this.parent.children[5].z = 24;
+            this.parent.children[5].state.velocity = 0;
+        }
+        if (position.z < -25) {
+            this.parent.children[5].z = -24;
+            this.parent.children[5].state.velocity = 0;
+        }
+        if (position.x > 25) {
+            this.parent.children[5].x = 24;
+            this.parent.children[5].state.velocity = 0;
+        }
+        if (position.x < -25) {
+            this.parent.children[5].x = -24;
+            this.parent.children[5].state.velocity = 0;
+        }
+    }
 }
 
 export default Fence;
