@@ -54,7 +54,7 @@ const starterScreen = `
             <label style="display: inline; width: fit-content;" for="difficulty">Difficulty (1 - 20):</label>
             <input style="width: 100px; height: 25px; display: inline;" type="number" value="1" id="difficulty" name="difficulty" min="1" max="20">
         </div>
-        <div style="margin-top: -20px; display: flex; flex-direction: row; gap: 10px">
+        <div style="margin-top: 20px; display: flex; flex-direction: row; gap: 10px">
             <label style="display: inline; width: fit-content;" for="levelofdetail">Level of Detail (1 - 3):</label>
             <input style="width: 100px; height: 25px; display: inline;" type="number" value="1" id="levelofdetail" name="levelofdetail" min="1" max="3">
         </div>
