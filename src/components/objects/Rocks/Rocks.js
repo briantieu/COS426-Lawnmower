@@ -140,8 +140,8 @@ class Rocks extends Group {
 
     collide(position) {
       for (let i = 0; i < this.centerPoints.length; i++) {
-        if (this.centerPoints[i].distanceTo(position) + constants.LAWNMOWER_RADIUS <= this.radii[i]) {
-          const newPosition = position.clone().sub(this.centerPoints[i]).normalize().multiplyScalar(this.radii[i] + 3)
+        if (this.centerPoints[i].distanceTo(position) <= this.radii[i] + constants.LAWNMOWER_RADIUS) {
+          const newPosition = position.clone().sub(this.centerPoints[i]).normalize().multiplyScalar(this.radii[i] + constants.LAWNMOWER_RADIUS)
           const newPositionFlat = new Vector3(newPosition.x, 0, newPosition.z)
           this.parent.children[constants.LAWNMOWER_INDEX].position.add(newPositionFlat)
           this.parent.children[constants.LAWNMOWER_INDEX].state.velocity = 0
