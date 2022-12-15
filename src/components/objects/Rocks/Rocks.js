@@ -138,15 +138,20 @@ class Rocks extends Group {
 
     }
 
-    collide(position) {
+    collide(boundingBox) {
+      const corners = [boundingBox.vertices[0], boundingBox.vertices[1], boundingBox.vertices[4], boundingBox.vertices[5]]
+
       for (let i = 0; i < this.centerPoints.length; i++) {
-        if (this.centerPoints[i].distanceTo(position) <= this.radii[i] + constants.LAWNMOWER_RADIUS) {
-          const newPosition = position.clone().sub(this.centerPoints[i]).normalize().multiplyScalar(this.radii[i] + constants.LAWNMOWER_RADIUS)
-          const newPositionFlat = new Vector3(newPosition.x, 0, newPosition.z)
-          this.parent.children[constants.LAWNMOWER_INDEX].position.add(newPositionFlat)
-          this.parent.children[constants.LAWNMOWER_INDEX].state.velocity = 0
-          this.collisionCount += 1
-        }
+        corners.forEach(corner => {
+          if (this.centerPoints[i].distanceTo(corner) <= this.radii[i]) {
+            // const newPosition = position.clone().sub(this.centerPoints[i]).normalize().multiplyScalar(this.radii[i] + constants.LAWNMOWER_RADIUS)
+            // const newPosition = this.parent.children[constants.LAWNMOWER_INDEX]
+            // const newPositionFlat = new Vector3(newPosition.x, 0, newPosition.z)
+            this.parent.children[constants.LAWNMOWER_INDEX].position = this.parent.children[constants.LAWNMOWER_INDEX].state.prevPosition;
+            this.parent.children[constants.LAWNMOWER_INDEX].state.velocity = 0
+            this.collisionCount += 1
+          }
+        })
       }
     }
 

@@ -1,4 +1,4 @@
-import { Euler, Group, Object3D, Vector3 } from 'three';
+import { BoxGeometry, Euler, Group, Mesh, Object3D, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 // Model from https://sketchfab.com/3d-models/lawn-mower-low-poly-be7ab00cce174ef1b6045017493591c6
 import MODEL from './lawnMower_2_no_bag.gltf';
@@ -10,8 +10,12 @@ class LawnMower extends Group {
         super();
 
         this.state = {
+<<<<<<< HEAD
             prevPosition: new Vector3(0,0,0),
             scale: 0.01,
+=======
+            velocityScale: 0.01,
+>>>>>>> a2d38c02d2e912ecf530ecb3105da1faba359467
             maxSpeed: 0.24,
             velocity: 0,
             forward: new Vector3(0, 0, 1).normalize(),
@@ -30,6 +34,14 @@ class LawnMower extends Group {
         cameraOffset.position.set(0, 11, -18);
         cameraOffset.name = 'cameraOffset';
         this.add(cameraOffset);
+
+        // Bounding box
+        const bBox = new BoxGeometry(1.2, 1, 2.6);
+        const bBoxMesh = new Mesh(bBox);
+        bBoxMesh.position.set(0, 0.21, 0.1)
+        bBoxMesh.material.visible = false;
+        this.add(bBoxMesh);
+        this.boundingBox = bBoxMesh
 
         const loader = new GLTFLoader();
 
@@ -50,7 +62,7 @@ class LawnMower extends Group {
                 .multiplyScalar(this.state.velocity);
             this.position.add(movement);
             this.parent.children[constants.GRASS_INDEX].cut(this.position, this.state.cutRadius); // cut grass
-            this.parent.children[constants.ROCKS_INDEX].collide(this.position); // collide with rocks
+            this.parent.children[constants.ROCKS_INDEX].collide(this.boundingBox); // collide with rocks
             this.parent.children[constants.WEEDS_INDEX].cut(this.position, this.state.cutRadius) // cut weeds
             this.parent.children[constants.FENCE_INDEX].collide(this.position);
         }
@@ -76,7 +88,7 @@ class LawnMower extends Group {
                 this.soundeffect.volume = 0.2;
                 this.soundeffect.play();
             }
-            this.state.velocity += accelMap[event.key] * this.state.scale;
+            this.state.velocity += accelMap[event.key] * this.state.velocityScale;
             if (this.state.velocity > this.state.maxSpeed) {
                 this.state.velocity = this.state.maxSpeed;
             } else if (this.state.velocity < -this.state.maxSpeed) {
