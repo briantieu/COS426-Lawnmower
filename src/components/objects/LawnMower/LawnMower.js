@@ -17,6 +17,12 @@ class LawnMower extends Group {
             cutRadius: 1
         };
 
+        this.soundeffect = new Audio('src/audio/lawnmower.mp3');
+        this.soundeffect.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+
         // Adds goal for camera offset to create chase camera
         // Inspired by https://jsfiddle.net/Fyrestar/6519yedL/
         const cameraOffset = new Object3D();
@@ -50,11 +56,6 @@ class LawnMower extends Group {
     }
 
     move(event) {
-        if (this.state.velocity == 0) {
-            var soundeffect = new Audio('src/audio/lawnmower.mp3');
-            soundeffect.volume = 0.3;
-            soundeffect.play();
-        }
         const accelMap = {
             ArrowUp: 1,
             ArrowDown: -1,
@@ -69,11 +70,21 @@ class LawnMower extends Group {
         };
 
         if (event.key in accelMap) {
+            if (Math.abs(this.state.velocity) > 0.05) {
+                this.soundeffect.volume = 0.2;
+                this.soundeffect.play();
+            }
             this.state.velocity += accelMap[event.key] * this.state.scale;
             if (this.state.velocity > this.state.maxSpeed) {
                 this.state.velocity = this.state.maxSpeed;
             } else if (this.state.velocity < -this.state.maxSpeed) {
                 this.state.velocity = -this.state.maxSpeed;
+            }
+            if (Math.abs(this.state.velocity) <= 0.05) {
+                console.log(this.soundeffect);
+                this.soundeffect.volume = 0;
+            } else {
+                this.soundeffect.volume = 0.2 * Math.abs((this.state.velocity / this.state.maxSpeed));
             }
         } else if (event.key in rotMap) {
             this.rotation.y += rotMap[event.key] * 0.02 * Math.PI;

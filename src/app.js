@@ -193,6 +193,12 @@ function startGame() {
     // Set up lawn mower movement
     window.addEventListener('keydown', handleKeyDown, false);
     var audio = new Audio('src/audio/background.mp3');
+    audio.volume = 0.5;
+    audio.addEventListener('ended', function() {
+        console.log("Audio ended");
+        this.currentTime = 0;
+        this.play();
+    }, false);
     audio.play();
     startTimer();
     console.log('Game Started!!');
