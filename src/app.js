@@ -51,8 +51,8 @@ const starterScreen = `
             </ul>
         </p>
         <div style="margin-top: -20px; display: flex; flex-direction: row; gap: 10px">
-            <label style="display: inline; width: fit-content;" for="difficulty">Difficulty (1 - 10):</label>
-            <input style="width: 100px; height: 25px; display: inline;" type="number" value="1" id="difficulty" name="difficulty" min="1" max="10">
+            <label style="display: inline; width: fit-content;" for="difficulty">Difficulty (1 - 20):</label>
+            <input style="width: 100px; height: 25px; display: inline;" type="number" value="1" id="difficulty" name="difficulty" min="1" max="20">
         </div>
         <br>
         <button id="countdownSequence" style="box-shadow: 0px 0px 10px 2px rgb(255, 255, 255); border: none; border-radius: 8px; margin-left: auto; margin-right: auto; cursor: pointer; background-color: rgb(142, 116, 76); color: white; border: none; width: fit-content; height: 50px; font-size: 25px;">
@@ -67,7 +67,7 @@ const starterScreen = `
         <p id="scoreResult" style="padding: 0; margin: 0; font-size: 70px;">0</p>
         <br>
         <br>
-        <button id="playAgain" style="box-shadow: 0px 0px 10px 2px rgb(255, 255, 255); border: none; border-radius: 8px; margin-left: auto; margin-right: auto; cursor: pointer; background-color: rgb(142, 116, 76); color: white; border: none; width: fit-content; height: 50px; font-size: 25px;">
+        <button id="playAgain" style="box-shadow: 0px 0px 10px 2px rgb(255, 255, 255); border: none; border-radius: 8px; margin-left: auto; margin-right: auto; cursor: pointer; background-color: #8D744C; color: white; border: none; width: fit-content; height: 50px; font-size: 25px;">
             Play Again
         </button>
         <br>
@@ -96,8 +96,8 @@ countdown.innerHTML = `
 <span id="two" style="width: 100vw; text-align: center; font-family: arial; visibility: hidden; color: red; font-size: 300px; line-height: 300px; z-index: 100; position: fixed; left: 0; top: 25%;">2</span>
 <span id="one" style="width: 100vw; text-align: center; font-family: arial; visibility: hidden; color: red; font-size: 300px; line-height: 300px; z-index: 100; position: fixed; left: 0; top: 25%;">1</span>
 <span id="go" style="width: 100vw; text-align: center; font-family: arial; visibility: hidden; color: red; font-size: 300px; line-height: 300px; z-index: 100; position: fixed; left: 0; top: 25%;">Go!!</span>
-<p id="timer" style="font-family: arial; position: fixed; visibility: hidden; top: -40px; left: 30px; font-size: 60px; font-weight: bolder; color: black">1:00</p>
-<p id="score" style="font-family: arial; position: fixed; visibility: hidden; top: 30px; left: 30px; font-size: 60px; font-weight: bolder; color: red">0</p>
+<p id="timer" style="font-family: arial; position: fixed; visibility: hidden; top: -40px; left: 30px; font-size: 60px; font-weight: bolder; background-color: #7E997E; padding: 5px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: black">1:00</p>
+<p id="score" style="font-family: arial; position: fixed; visibility: hidden; top: 30px; left: 30px; font-size: 60px; font-weight: bolder; background-color: #7E997E; padding: 5px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: white;">0</p>
 `;
 
 document.body.append(div);
@@ -126,7 +126,7 @@ function countdownSequence() {
 
     let difficultyValue = parseInt(document.getElementById("difficulty").value);
     if (difficultyValue < 1) difficultyValue = 1;
-    else if (difficultyValue > 10) difficultyValue = 10;
+    else if (difficultyValue > 20) difficultyValue = 20;
     scene = new SeedScene(difficultyValue);
 
     setTimeout(() => {
