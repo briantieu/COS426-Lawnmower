@@ -81,7 +81,6 @@ class LawnMower extends Group {
                 this.state.velocity = -this.state.maxSpeed;
             }
             if (Math.abs(this.state.velocity) <= 0.05) {
-                console.log(this.soundeffect);
                 this.soundeffect.volume = 0;
             } else {
                 this.soundeffect.volume = 0.2 * Math.abs((this.state.velocity / this.state.maxSpeed));
