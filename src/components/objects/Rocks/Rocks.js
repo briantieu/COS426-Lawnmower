@@ -74,7 +74,7 @@ class Rocks extends Group {
         this.collisionCount = 0
         this.centerPoints = []
         this.radii = []
-
+      console.log(difficulty)
         // remap value from the range of [smin,smax] to [emin,emax]
         const map = (val, smin, smax, emin, emax) => (emax-emin)*(val-smin)/(smax-smin) + emin
 

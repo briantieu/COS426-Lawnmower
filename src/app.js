@@ -36,33 +36,38 @@ document.body.appendChild(canvas);
 
 const div = document.createElement('div');
 const starterScreen = `
-<div style="padding: 20px; margin-left: auto; margin-right: auto; height: fit-content; width: 50vw; color: white; font-size: 20px; background-color: #404040">
+<div style="border-radius: 20px; padding: 20px; margin-left: auto; margin-right: auto; height: fit-content; width: 50vw; color: white; font-size: 20px; background-color: rgb(53, 67, 53); box-shadow: 0px 0px 40px 8px black">
     <div id="starterScreen" style="align-content: center; display: flex; flex-direction: column;">
-        <p style='color: orange; font-weight: bolder; font-size: 40px'>
-            Welcome to Lawnmower Lunacy!!
+        <p style='font-family: Cursive;  color: rgb(255, 255, 255); font-weight: bolder; font-size: 45px; padding-top: 10px; margin: 0;'>
+            <i>Welcome to Lawnmower Lunacy</i>
         </p>
-        <p style='text-align: left'>Gameplay Directions:
-            <ul style='text-align: left'>
-                <li>Use the &#8593; and &#8595; keyboard keys to speed up and slown down.</li>
-                <li>Use the &#8592; and &#8594; keyboard keys to change direction.</li>
-                <li>Cut as much grass as you can before time runs out!!</li>
+        <p style='text-align: left'><b style="font-size: 25px;">Gameplay Directions:</b>
+            <ul style='margin-top: -10px; text-align: left'>
+                <li>Use the <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8593;</span> and <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8595;</span> keyboard keys to speed up and slown down.</li>
+                <li style="margin-top: 7px;">Use the <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8592;</span> and <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8594;</span> keyboard keys to change direction.</li>
+                <li style="margin-top: 7px;">Running into a rock will <span style="color: rgb(214, 134, 134); font-weight: bolder;">deduct</span> points.</li>
+                <li style="margin-top: 7px;">Mowing a weed (big grass) will give you size <span style="color: rgb(214, 134, 134); font-weight: bolder;">boost</span>!</li>
+                <li style="margin-top: 7px; font-weight: bolder;">Cut as much grass as you can before time runs out!!</li>
             </ul>
         </p>
-        <label for="difficulty">Difficulty (between 1 and 5):</label>
-        <input type="number" id="difficulty" name="difficulty" min="1" max="5">
-        <button id="countdownSequence" style="margin-left: auto; margin-right: auto; cursor: pointer; background-color: red; color: white; border: none; width: fit-content; height: 50px; font-size: 25px;">
+        <div style="margin-top: -20px; display: flex; flex-direction: row; gap: 10px">
+            <label style="display: inline; width: fit-content;" for="difficulty">Difficulty (1 - 10):</label>
+            <input style="width: 100px; height: 25px; display: inline;" type="number" value="1" id="difficulty" name="difficulty" min="1" max="10">
+        </div>
+        <br>
+        <button id="countdownSequence" style="box-shadow: 0px 0px 10px 2px rgb(255, 255, 255); border: none; border-radius: 8px; margin-left: auto; margin-right: auto; cursor: pointer; background-color: rgb(142, 116, 76); color: white; border: none; width: fit-content; height: 50px; font-size: 25px;">
             Mow That Lawn!!
         </button>
         <br>
     </div>
     <div id="resultsScreen" style="display: none; flex-direction: column;">
-        <p style='color: orange; font-weight: bolder; font-size: 40px'>
+        <p style='color: white; font-weight: bolder; font-size: 60px; padding: 20px; margin: 0;'>
             Your Score
         </p>
         <p id="scoreResult" style="padding: 0; margin: 0; font-size: 70px;">0</p>
         <br>
         <br>
-        <button id="playAgain" style="margin-left: auto; margin-right: auto; cursor: pointer; background-color: red; color: white; border: none; width: fit-content; height: 50px; font-size: 25px;">
+        <button id="playAgain" style="box-shadow: 0px 0px 10px 2px rgb(255, 255, 255); border: none; border-radius: 8px; margin-left: auto; margin-right: auto; cursor: pointer; background-color: rgb(142, 116, 76); color: white; border: none; width: fit-content; height: 50px; font-size: 25px;">
             Play Again
         </button>
         <br>
@@ -82,7 +87,7 @@ div.style.top = '0';
 div.style.fontFamily = 'Arial';
 div.style.width = '100vw';
 div.style.height = '100vh';
-div.style.boxShadow = '0px 0px 40px 8px black';
+div.style.backgroundColor = 'rgb(126, 153, 126)';
 div.innerHTML = starterScreen;
 
 const countdown = document.createElement('div');
@@ -118,7 +123,12 @@ function countdownSequence() {
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('three').style.visibility = 'visible';
     difficultyRegistered = true;
-    scene = new SeedScene(parseInt(document.getElementById("difficulty").value));
+
+    let difficultyValue = parseInt(document.getElementById("difficulty").value);
+    if (difficultyValue < 1) difficultyValue = 1;
+    else if (difficultyValue > 10) difficultyValue = 10;
+    scene = new SeedScene(difficultyValue);
+
     setTimeout(() => {
         document.getElementById('three').style.visibility = 'hidden';
         document.getElementById('two').style.visibility = 'visible';
@@ -155,6 +165,7 @@ function startGame() {
     console.log('Game Started!!');
 }
 
+// timer code taken from this site: https://codepen.io/ishanbakshi/pen/pgzNMv?editors=0110
 function startTimer() {
     var presentTime = document.getElementById('timer').innerHTML;
     var timeArray = presentTime.split(/[:]+/);
