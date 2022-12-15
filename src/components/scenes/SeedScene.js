@@ -11,7 +11,7 @@ import { Weeds } from '../objects/Weeds';
 import { Fence } from '../objects/Fence';
 
 class SeedScene extends Scene {
-    constructor() {
+    constructor(props) {
         // Call parent Scene() constructor
         super();
 
@@ -33,7 +33,7 @@ class SeedScene extends Scene {
         const trees = new Trees();
         const farm  = new Farm();
         const lawnMower = new LawnMower(this);
-        const rocks = new Rocks();
+        const rocks = new Rocks(props);
         const weeds = new Weeds();
         const fence = new Fence();
         this.add(land, flower, lights, grass, trees, lawnMower, farm, rocks, weeds, fence);
