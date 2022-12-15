@@ -12,7 +12,7 @@ import { Fence } from '../objects/Fence';
 import * as constants from '../../constants.js';
 
 class SeedScene extends Scene {
-    constructor(props) {
+    constructor(difficulty, levelofdetail) {
         // Call parent Scene() constructor
         super();
 
@@ -34,7 +34,7 @@ class SeedScene extends Scene {
         const trees = new Trees();
         const farm  = new Farm();
         const lawnMower = new LawnMower(this);
-        const rocks = new Rocks(props);
+        const rocks = new Rocks(difficulty, levelofdetail);
         const weeds = new Weeds();
         const fence = new Fence();
         // If this following line is changed, need to change constants.js to reflect it

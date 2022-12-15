@@ -54,6 +54,10 @@ const starterScreen = `
             <label style="display: inline; width: fit-content;" for="difficulty">Difficulty (1 - 20):</label>
             <input style="width: 100px; height: 25px; display: inline;" type="number" value="1" id="difficulty" name="difficulty" min="1" max="20">
         </div>
+        <div style="margin-top: -20px; display: flex; flex-direction: row; gap: 10px">
+            <label style="display: inline; width: fit-content;" for="levelofdetail">Level of Detail (1 - 3):</label>
+            <input style="width: 100px; height: 25px; display: inline;" type="number" value="1" id="levelofdetail" name="levelofdetail" min="1" max="3">
+        </div>
         <br>
         <button id="countdownSequence" style="box-shadow: 0px 0px 10px 2px rgb(255, 255, 255); border: none; border-radius: 8px; margin-left: auto; margin-right: auto; cursor: pointer; background-color: rgb(142, 116, 76); color: white; border: none; width: fit-content; height: 50px; font-size: 25px;">
             Mow That Lawn!!
@@ -154,7 +158,11 @@ function countdownSequence() {
     let difficultyValue = parseInt(document.getElementById("difficulty").value);
     if (difficultyValue < 1) difficultyValue = 1;
     else if (difficultyValue > 20) difficultyValue = 20;
-    scene = new SeedScene(difficultyValue);
+
+    let levelofdetailValue = parseInt(document.getElementById("levelofdetail").value);
+    if (levelofdetailValue < 1) levelofdetailValue = 1;
+    else if (levelofdetailValue > 3) levelofdetailValue = 3;
+    scene = new SeedScene(difficultyValue, levelofdetailValue);
 
     setTimeout(() => {
         document.getElementById('three').style.visibility = 'hidden';
@@ -189,7 +197,7 @@ function startGame() {
     const handleKeyDown = (event) => {
         scene.getObjectByName('lawnMower').move(event);
     };
-    
+
     // Set up lawn mower movement
     window.addEventListener('keydown', handleKeyDown, false);
     var audio = new Audio('src/audio/background.mp3');
@@ -279,7 +287,7 @@ const onAnimationFrameHandler = (timeStamp) => {
 
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
-    
+
     updateScore(scene.children[2].getScore() - scene.children[6].getRockPenalty());
     }
     window.requestAnimationFrame(onAnimationFrameHandler);

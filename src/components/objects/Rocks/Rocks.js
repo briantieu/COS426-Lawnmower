@@ -65,7 +65,7 @@ const size = constants.FIELD_WIDTH
 const instanceMultiplier = constants.ROCKS_INSTANCE_MULTIPLIER;
 
 class Rocks extends Group {
-    constructor(difficulty) {
+    constructor(difficulty, levelofdetail) {
         // Call parent Group() constructor
         super();
 
@@ -75,7 +75,7 @@ class Rocks extends Group {
         this.collisionCount = 0
         this.centerPoints = []
         this.radii = []
-        
+
         // remap value from the range of [smin,smax] to [emin,emax]
         const map = (val, smin, smax, emin, emax) => (emax-emin)*(val-smin)/(smax-smin) + emin
 
@@ -105,13 +105,13 @@ class Rocks extends Group {
             const offset1z = (Math.random()-0.5)*2
             const offset2x = (Math.random()-0.5)*2
             const offset2z = (Math.random()-0.5)*2
-            const sphere1 = new SphereGeometry(rad1,7,8)
+            const sphere1 = new SphereGeometry(rad1,levelofdetail*3,levelofdetail*4)
             sphere1.translate(offset1x,0,offset1z)
             geometry.merge(sphere1)
-            const sphere2 = new SphereGeometry(rad2,7,8)
+            const sphere2 = new SphereGeometry(rad2,levelofdetail*3,levelofdetail*4)
             sphere2.translate(offset2x,0,offset2z)
             geometry.merge(sphere2)
-            const sphere3 = new SphereGeometry(rad3,7,8)
+            const sphere3 = new SphereGeometry(rad3,levelofdetail*3,levelofdetail*4)
             sphere3.translate(0,0,0)
             geometry.merge(sphere3)
 
