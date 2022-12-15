@@ -24,6 +24,7 @@ let difficultyRegistered = false;
 const relativeCameraOffset = new Vector3(0, 10, -20);
 camera.position.set(0, 10, -10);
 camera.lookAt(new Vector3(0, 0, 0));
+let cameraView = 0;
 
 // Set up renderer, canvas, and minor CSS adjustments
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -134,12 +135,14 @@ function toggleCamera(){
         document.getElementById("ball").style.MozTransform =  "translate3d(150%, 0, 0)";
         document.getElementById("ball").style.transform =  "translate3d(150%, 0, 0)";
         document.getElementById("switch").style.backgroundColor = "black";
+        cameraView = 1;
     }
     else{
         document.getElementById("ball").style.webkitTransform =  "translate3d(0, 0, 0)";
         document.getElementById("ball").style.MozTransform =  "translate3d(0, 0, 0)";
         document.getElementById("ball").style.transform =  "translate3d(0, 0, 0)";
         document.getElementById("switch").style.backgroundColor = "rgb(126, 153, 126)";
+        cameraView = 0;
     }
 }
 
@@ -275,12 +278,15 @@ const onAnimationFrameHandler = (timeStamp) => {
     // Camera controls inspired by https://jsfiddle.net/Fyrestar/6519yedL/
     const lawnMower = scene.getObjectByName('lawnMower');
     const temp = new Vector3(0, 0, 0);
-    // Follows LM with fixed world POV, but not behind LM
-    // temp.setFromMatrixPosition(lawnMower.matrixWorld).add(relativeCameraOffset);
 
-    // Chase camera
-    const cameraOffset = lawnMower.getObjectByName('cameraOffset');
-    temp.setFromMatrixPosition(cameraOffset.matrixWorld);
+    if (cameraView === 0) {
+        // Default is a chase camera
+        const cameraOffset = lawnMower.getObjectByName('cameraOffset');
+        temp.setFromMatrixPosition(cameraOffset.matrixWorld);
+    } else {
+        // Second option follows LM with fixed world POV, but not behind LM
+        temp.setFromMatrixPosition(lawnMower.matrixWorld).add(relativeCameraOffset);
+    }
 
     camera.position.lerp(temp, 0.15);
     camera.lookAt(lawnMower.position);
