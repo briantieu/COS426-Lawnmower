@@ -1,7 +1,7 @@
 import { Euler, Group, Object3D, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 // Model from https://sketchfab.com/3d-models/lawn-mower-low-poly-be7ab00cce174ef1b6045017493591c6
-import MODEL from './lawnMower_2.gltf';
+import MODEL from './lawnMower_2_no_bag.gltf';
 import * as constants from '../../../constants.js';
 
 class LawnMower extends Group {
