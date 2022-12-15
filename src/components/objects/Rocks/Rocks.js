@@ -139,18 +139,23 @@ class Rocks extends Group {
     }
 
     collide(boundingBox) {
-      const corners = [boundingBox.vertices[0], boundingBox.vertices[1], boundingBox.vertices[4], boundingBox.vertices[5]]
+      const corners = [boundingBox.geometry.vertices[0], boundingBox.geometry.vertices[1], boundingBox.geometry.vertices[4], boundingBox.geometry.vertices[5]]
 
+      console.log(corners)
       for (let i = 0; i < this.centerPoints.length; i++) {
-        corners.forEach(corner => {
-          if (this.centerPoints[i].distanceTo(corner) <= this.radii[i]) {
+        corners.every(corner => {
+          console.log(corner)
+          if (this.centerPoints[i].distanceTo(new Vector3(corner.x, 0, corner.z)) <= this.radii[i]) {
             // const newPosition = position.clone().sub(this.centerPoints[i]).normalize().multiplyScalar(this.radii[i] + constants.LAWNMOWER_RADIUS)
             // const newPosition = this.parent.children[constants.LAWNMOWER_INDEX]
             // const newPositionFlat = new Vector3(newPosition.x, 0, newPosition.z)
             this.parent.children[constants.LAWNMOWER_INDEX].position = this.parent.children[constants.LAWNMOWER_INDEX].state.prevPosition;
+            console.log("collision")
             this.parent.children[constants.LAWNMOWER_INDEX].state.velocity = 0
             this.collisionCount += 1
+            return false;
           }
+          return true;
         })
       }
     }
