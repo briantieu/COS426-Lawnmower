@@ -96,7 +96,7 @@ countdown.innerHTML = `
 <span id="two" style="width: 100vw; text-align: center; font-family: arial; visibility: hidden; color: red; font-size: 300px; line-height: 300px; z-index: 100; position: fixed; left: 0; top: 25%;">2</span>
 <span id="one" style="width: 100vw; text-align: center; font-family: arial; visibility: hidden; color: red; font-size: 300px; line-height: 300px; z-index: 100; position: fixed; left: 0; top: 25%;">1</span>
 <span id="go" style="width: 100vw; text-align: center; font-family: arial; visibility: hidden; color: red; font-size: 300px; line-height: 300px; z-index: 100; position: fixed; left: 0; top: 25%;">Go!!</span>
-<p id="timer" style="font-family: arial; position: fixed; visibility: hidden; top: -40px; left: 30px; font-size: 60px; font-weight: bolder; background-color: #7E997E; padding: 5px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: black">0:10</p>
+<p id="timer" style="font-family: arial; position: fixed; visibility: hidden; top: -40px; left: 30px; font-size: 60px; font-weight: bolder; background-color: #7E997E; padding: 5px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: black">1:00</p>
 <p id="score" style="font-family: arial; position: fixed; visibility: hidden; top: 30px; left: 30px; font-size: 60px; font-weight: bolder; background-color: #7E997E; padding: 5px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: white;">0</p>
 
 <div id="camera-toggle" style="position: fixed; top: 20px; right: 20px; width: fit-content; margin: auto; height: 40px; text-align: center; background-color: rgb(53, 67, 53); padding: 10px; padding-left: 10px; padding-right: 10px; border-radius: 8px; color: white;">
