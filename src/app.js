@@ -9,6 +9,10 @@
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SeedScene } from 'scenes';
+require('./audio/countdownbeep.mp3')
+require('./audio/start.mp3')
+require('./audio/background.mp3')
+require('./audio/lawnmower.mp3')
 
 // Initialize core ThreeJS components
 const scene = new SeedScene();
@@ -63,8 +67,8 @@ const starterScreen = `
 </div>
 `
 div.id = 'startScreen';
-// div.style.display = 'none'; // comment out this line to show the homescreen
-div.style.display = 'flex';
+div.style.display = 'none'; // comment out this line to show the homescreen
+// div.style.display = 'flex';
 div.style.flexDirection = 'column';
 div.style.justifyContent = 'center';
 div.style.position = 'fixed';

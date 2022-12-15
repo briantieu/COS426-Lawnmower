@@ -9,6 +9,7 @@ import {
 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import MODEL from './land.gltf';
+require('./textures/grass-texture.jpg')
 
 class Land extends Group {
     constructor() {
@@ -25,7 +26,7 @@ class Land extends Group {
             this.add(gltf.scene);
         });
         */
-        let texture = loader.load('src/components/images/grass-texture.jpg');
+        let texture = loader.load('src/components/objects/Land/textures/grass-texture.jpg');
         texture.wrapS = RepeatWrapping;
         texture.wrapT = RepeatWrapping;
         const timesToRepeatHorizontally = 100;
