@@ -72,6 +72,8 @@ class Rocks extends Group {
         // const dummy = new Object3D();
 
         // const instancedMesh = new InstancedMesh(geometry, leavesMaterial, instanceNumber);
+        this.rock1audio = new Audio('src/audio/rock1.mp3');
+        this.rock2audio = new Audio('src/audio/rock2.mp3');
         this.collisionCount = 0
         this.centerPoints = []
         this.radii = []
@@ -154,6 +156,8 @@ class Rocks extends Group {
             lawnmower.position.set(lawnmower.position.x + cornerOffset.x, lawnmower.position.y, lawnmower.position.z + cornerOffset.z)
             // const newPositionFlat = new Vector3(newPosition.x, 0, newPosition.z)
             // lawnmower.position.set(newPos.x, newPos.y, newPos.z);
+            if (Math.random() > 0.5) this.rock1audio.play()
+            else this.rock2audio.play()
             console.log("collision")
             lawnmower.state.velocity = 0
             this.collisionCount += 1

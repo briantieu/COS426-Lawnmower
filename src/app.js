@@ -13,6 +13,9 @@ require('./audio/countdownbeep.mp3')
 require('./audio/start.mp3')
 require('./audio/background.mp3')
 require('./audio/lawnmower.mp3')
+require('./audio/rock1.mp3')
+require('./audio/rock2.mp3')
+require('./audio/powerup.mp3')
 
 // Initialize core ThreeJS components
 let scene;
@@ -169,14 +172,17 @@ function countdownSequence() {
     setTimeout(() => {
         document.getElementById('three').style.visibility = 'hidden';
         document.getElementById('two').style.visibility = 'visible';
+        countdownbeep.play()
     }, 1000);
     setTimeout(() => {
         document.getElementById('two').style.visibility = 'hidden';
         document.getElementById('one').style.visibility = 'visible';
+        countdownbeep.play()
     }, 2000);
     setTimeout(() => {
         document.getElementById('one').style.visibility = 'hidden';
         document.getElementById('go').style.visibility = 'visible';
+        countdownbeep.play()
     }, 3000);
     setTimeout(() => {
         startbeep.play();
