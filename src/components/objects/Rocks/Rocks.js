@@ -158,7 +158,6 @@ class Rocks extends Group {
             // lawnmower.position.set(newPos.x, newPos.y, newPos.z);
             if (Math.random() > 0.5) this.rock1audio.play()
             else this.rock2audio.play()
-            console.log("collision")
             lawnmower.state.velocity = 0
             this.collisionCount += 1
             return false;
@@ -169,7 +168,6 @@ class Rocks extends Group {
     }
 
     getRockPenalty() {
-      console.log("Rock", this.collisionCount * 10);
       return this.collisionCount * 10;
     }
 }

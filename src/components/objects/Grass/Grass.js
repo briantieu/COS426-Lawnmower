@@ -107,7 +107,7 @@ class Grass extends Group {
         this.clock = new Clock();
         this.startingBlades = 0;
         this.grassMap = {};
-        this.grassCut = 0;
+        this.grassCut = [];
         dummy = new Object3D();
 
         // Position and scale the grass blade instances randomly.
@@ -139,7 +139,7 @@ class Grass extends Group {
     }
 
     removeFromGrassCutMap(key, value) {
-        if (key in this.grassMap) {
+        if (this.grassMap.hasOwnProperty(key)) {
             let index = this.grassMap[key].indexOf(value);
             this.grassMap[key].splice(index, 1);
         }
@@ -192,12 +192,20 @@ class Grass extends Group {
     cut(position, radius) {
         //console.log(position);
         let cutIndices = this.cutIndicesFromXZ(position.x, position.z);
+        var cutIndicesBlades = [];
         for (let i = 0; i < cutIndices.length; i++) {
             let blades = this.grassMap[cutIndices[i]];
+            console.log(cutIndices[i], blades);
+            cutIndicesBlades.push([blades, cutIndices[i]]);
+        }
+        var toDelete = [];
+        for (let j = 0; j < cutIndicesBlades.length; j++) {
+            let [blades, hashIndex] = [cutIndicesBlades[j][0], cutIndicesBlades[j][1]];
             for (let i = 0; i < blades.length; i++) {
                 let [x, z, index] = [blades[i][0], blades[i][1], blades[i][2]];
                 let dist = Math.sqrt((x - position.x) * (x - position.x) + (z - position.z) * (z - position.z));
-                if (dist < radius) {
+                if (dist < radius && this.grassCut.indexOf(index) == -1) {
+                    this.grassCut.push(index);
                     const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
                     dummy.position.set(x, 0, z);
                     dummy.scale.setScalar(0);
@@ -205,11 +213,10 @@ class Grass extends Group {
                     dummy.updateMatrix();
                     instancedMesh.setMatrixAt(0, dummy.matrix);
                     this.children[index] = instancedMesh;
-                    this.removeFromGrassCutMap(cutIndices[i], [x, z, index]);
-                    this.grassCut += 1;
                 }
             }
         }
+        
         
         /*let index = Math.floor((position.x + (grid_width / 2)) / box_width) * (grid_width / box_width) + Math.floor((position.z + (grid_width / 2)) / box_width);
         const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
@@ -227,8 +234,7 @@ class Grass extends Group {
     }
 
     getScore() {
-        let percentCut = this.grassCut / this.startingBlades;
-        console.log("Grass", Math.round(percentCut * 1000));
+        let percentCut = this.grassCut.length / this.startingBlades;
         return Math.round(percentCut * 1000);
     }
 
