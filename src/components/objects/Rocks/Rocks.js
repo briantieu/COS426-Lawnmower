@@ -164,6 +164,7 @@ class Rocks extends Group {
     }
 
     getRockPenalty() {
+      console.log("Rock", this.collisionCount * 10);
       return this.collisionCount * 10;
     }
 }
