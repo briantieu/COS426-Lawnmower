@@ -170,6 +170,7 @@ class Rocks extends Group {
     getRockPenalty() {
       return this.collisionCount * 10;
     }
+    
 }
 
 export default Rocks;

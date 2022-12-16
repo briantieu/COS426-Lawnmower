@@ -63,6 +63,11 @@ class LawnMower extends Group {
         }
     }
 
+    endGame() {
+        this.soundeffect.volume = 0;
+        this.soundeffect = null;
+    }
+
     move(event) {
         const accelMap = {
             ArrowUp: 1,

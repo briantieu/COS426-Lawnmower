@@ -113,7 +113,6 @@ class Grass extends Group {
         dummy = new Object3D();
 
         // Position and scale the grass blade instances randomly.
-        console.log(levelofdetail)
         let index = 0;
         for (let x = -grid_width / 2 + (box_width / 2); x < grid_width / 2 - (box_width / 2); x += box_width) {
             for (let z = -grid_width / 2 + (box_width / 2); z < grid_width / 2 - (box_width / 2); z += box_width) {

@@ -19,6 +19,7 @@ require('./audio/powerup.mp3')
 
 // Initialize core ThreeJS components
 let scene;
+let gameStillGoing = true;
 const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
 let difficultyRegistered = false;
@@ -197,8 +198,11 @@ function startGame() {
     document.getElementById('timer').style.visibility = 'visible';
     document.getElementById('score').style.visibility = 'visible';
     const handleKeyDown = (event) => {
-        scene.getObjectByName('lawnMower').move(event);
+        if (gameStillGoing) {
+            scene.getObjectByName('lawnMower').move(event);
+        }
     };
+    gameStillGoing = true;
 
     // Set up lawn mower movement
     window.addEventListener('keydown', handleKeyDown, false);
@@ -206,6 +210,7 @@ function startGame() {
     audio.volume = 0.5;
     audio.addEventListener('ended', function() {
         console.log("Audio ended");
+        this.scene.
         this.currentTime = 0;
         this.play();
     }, false);
@@ -246,6 +251,8 @@ function checkSecond(sec) {
 }
 
 function endGame() {
+    gameStillGoing = false;
+    scene.getObjectByName('lawnMower').endGame();
     document.getElementById("startScreen").style.display = 'flex';
     document.getElementById("resultsScreen").style.display = 'flex';
     document.getElementById("starterScreen").style.display = 'none';
@@ -297,7 +304,9 @@ const onAnimationFrameHandler = (timeStamp) => {
 
     updateScore(scene.children[2].getScore() - scene.children[6].getRockPenalty());
     }
-    window.requestAnimationFrame(onAnimationFrameHandler);
+    if (gameStillGoing) {
+        window.requestAnimationFrame(onAnimationFrameHandler);
+    }
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
