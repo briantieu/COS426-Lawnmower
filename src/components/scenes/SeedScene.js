@@ -35,7 +35,7 @@ class SeedScene extends Scene {
         const farm  = new Farm(this);
         const lawnMower = new LawnMower(this);
         const rocks = new Rocks(difficulty, levelofdetail);
-        const weeds = new Weeds();
+        const weeds = new Weeds(this);
         const fence = new Fence();
         // If this following line is changed, need to change constants.js to reflect it
         this.add(land, lights, grass, trees, lawnMower, farm, rocks, weeds, fence);

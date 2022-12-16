@@ -198,7 +198,6 @@ class Grass extends Group {
             console.log(cutIndices[i], blades);
             cutIndicesBlades.push([blades, cutIndices[i]]);
         }
-        var toDelete = [];
         for (let j = 0; j < cutIndicesBlades.length; j++) {
             let [blades, hashIndex] = [cutIndicesBlades[j][0], cutIndicesBlades[j][1]];
             for (let i = 0; i < blades.length; i++) {

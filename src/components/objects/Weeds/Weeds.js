@@ -1,4 +1,4 @@
-import { Group, ShaderMaterial, DoubleSide, Object3D, PlaneGeometry, InstancedMesh, FrontSide, Vector3, VertexColors} from 'three';
+import { Clock, Group, ShaderMaterial, DoubleSide, Object3D, PlaneGeometry, InstancedMesh, FrontSide, Vector3, VertexColors} from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import * as constants from '../../../constants.js';
@@ -10,6 +10,11 @@ import * as constants from '../../../constants.js';
 const vertexShader = `
   varying vec2 vUv;
   uniform float time;
+
+    float modI(float a,float b) {
+        float m=a-floor((a+0.5)/b)*b;
+        return floor(m+0.5);
+    }
 
 	void main() {
 
@@ -27,8 +32,32 @@ const vertexShader = `
     // here the displacement is made stronger on the blades tips.
     float dispPower = 1.0 - cos( uv.y * 3.1416 / 2.0 );
 
-    float displacement = sin( mvPosition.z + time * 10.0 ) * ( 0.1 * dispPower );
-    mvPosition.z += displacement;
+
+    vec2 fractionalPos = 0.5 + mvPosition.xz / 25.0;
+    fractionalPos.x = 0.5 + (mvPosition.x + 25.0) / 25.0;
+    fractionalPos.y = 0.5 + (mvPosition.z + 25.0) / 25.0;
+
+    //To make it seamless, make it a multiple of 2*PI
+    fractionalPos *= 2.0 * 3.14159;
+
+    //Wind is sine waves in time.
+    float index = (mvPosition.x + 25.0) + mvPosition.z;
+    index = index - floor((index / 7.0)) * 7.0;
+    float noise = 0.5 + 0.5 * sin(index + time);
+    float halfAngle = -noise * 0.1;
+    noise = 0.5 + 0.5 * cos(index / 3.0 + time);
+    halfAngle -= noise * 0.05 + 1.0;
+
+	vec4 direction = normalize(vec4(sin(halfAngle), 0.0, -sin(halfAngle), cos(halfAngle)));
+
+    index = float(int(((mvPosition.x + (50.0 / 2.0)) / 1.0) * (50.0 / 1.0) + (mvPosition.z + (50.0 / 2.0)) / 1.0)) / 300.0;
+
+    float random = (mvPosition.x + mvPosition.y) - floor((mvPosition.x + mvPosition.y) / 0.4) * 0.4;
+
+    index = index - floor((index / 5.0)) * 5.0;
+    index = index / 15.0;
+    mvPosition.z += random / 2.5 * sin(time + random * 3.0) * direction.z * ( 0.3 * dispPower );
+    mvPosition.x += random / 2.5 * sin(time + random * 3.0) * direction.x * ( 0.3 * dispPower );
 
     //
 
@@ -73,6 +102,7 @@ class Weeds extends Group {
     constructor(parent) {
         // Call parent Group() constructor
         super();
+        this.clock = new Clock();
         this.grass = [];
         dummy = new Object3D();
         this.powerupaudio = new Audio('src/audio/powerup.mp3')
@@ -117,6 +147,7 @@ class Weeds extends Group {
 
             }
         }
+        parent.addToUpdateList(this);
     }
 
     cut(position, radius) {
@@ -153,6 +184,14 @@ class Weeds extends Group {
             }
         })
     }
+    update(timestamp) {
+        // Hand a time variable to vertex shader for wind displacement.
+        leavesMaterial.uniforms.time.value = timestamp;
+        leavesMaterial.uniformsNeedUpdate = true;
+        //debugger;
+        //this.parent.requestAnimationFrame(this.parent.animate);
+        //this.parent.renderer.render(this.parent.scene, this.parent.camera);
+    };
 }
 
 export default Weeds;
