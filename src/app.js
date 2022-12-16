@@ -56,8 +56,8 @@ const starterScreen = `
             <input style="width: 100px; height: 25px; display: inline;" type="number" value="10" id="difficulty" name="difficulty" min="1" max="20">
         </div>
         <div style="margin-top: 20px; display: flex; flex-direction: row; gap: 10px">
-            <label style="display: inline; width: fit-content;" for="levelofdetail">Level of Detail (1 - 3):</label>
-            <input style="width: 100px; height: 25px; display: inline;" type="number" value="3" id="levelofdetail" name="levelofdetail" min="1" max="3">
+            <label style="display: inline; width: fit-content;" for="levelofdetail">Level of Detail (1 - 5):</label>
+            <input style="width: 100px; height: 25px; display: inline;" type="number" value="3" id="levelofdetail" name="levelofdetail" min="1" max="5">
         </div>
         <br>
         <button id="countdownSequence" style="box-shadow: 0px 0px 10px 2px rgb(255, 255, 255); border: none; border-radius: 8px; margin-left: auto; margin-right: auto; cursor: pointer; background-color: rgb(142, 116, 76); color: white; border: none; width: fit-content; height: 50px; font-size: 25px;">
@@ -163,7 +163,7 @@ function countdownSequence() {
 
     let levelofdetailValue = parseInt(document.getElementById("levelofdetail").value);
     if (levelofdetailValue < 1) levelofdetailValue = 1;
-    else if (levelofdetailValue > 3) levelofdetailValue = 3;
+    else if (levelofdetailValue > 5) levelofdetailValue = 5;
     scene = new SeedScene(difficultyValue, levelofdetailValue);
 
     setTimeout(() => {
@@ -285,7 +285,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     camera.lookAt(lawnMower.position);
 
     // controls.update();
-    
+
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
 
