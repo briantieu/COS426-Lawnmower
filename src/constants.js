@@ -22,9 +22,9 @@ export const GRASS_CUT_BOX_WIDTH = 1;
 export const NUM_WEED_PATCHES = 10;
 export const WEED_PATCH_SIZE = 2;
 
-export const TREES_OUTER_EDGE = 55;
-export const TREES_INNER_EDGE = 40;
-export const NUM_TREES = 50;
+export const TREES_OUTER_EDGE = 45;
+export const TREES_INNER_EDGE = 35;
+export const NUM_TREES = 70;
 
 export const ROCKS_INSTANCE_MULTIPLIER = 10;
 export const LAWNMOWER_RADIUS = 0.75;

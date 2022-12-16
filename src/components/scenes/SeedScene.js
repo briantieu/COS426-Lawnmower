@@ -32,7 +32,7 @@ class SeedScene extends Scene {
         const lights = new BasicLights();
         const grass = new Grass(this);
         const trees = new Trees();
-        const farm  = new Farm();
+        const farm  = new Farm(this);
         const lawnMower = new LawnMower(this);
         const rocks = new Rocks(difficulty, levelofdetail);
         const weeds = new Weeds();
@@ -43,6 +43,7 @@ class SeedScene extends Scene {
         // // Populate GUI
         // this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
     }
+
 
     addToUpdateList(object) {
         this.state.updateList.push(object);

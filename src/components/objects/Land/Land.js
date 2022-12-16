@@ -31,8 +31,8 @@ class Land extends Group {
         let texture = loader.load('src/components/objects/Land/textures/grass-texture.jpg');
         texture.wrapS = RepeatWrapping;
         texture.wrapT = RepeatWrapping;
-        const timesToRepeatHorizontally = 100;
-        const timesToRepeatVertically = 100;
+        const timesToRepeatHorizontally = 50;
+        const timesToRepeatVertically = 50;
         texture.repeat.set(timesToRepeatHorizontally, timesToRepeatVertically);
 
         const geometry = new PlaneGeometry(1000, 1000);
