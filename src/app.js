@@ -118,6 +118,19 @@ countdown.innerHTML = `
 
 document.body.append(div);
 document.body.append(countdown);
+const audioPlay = document.createElement('script');
+audioPlay.innerHTML =
+`
+var audio = new Audio('src/audio/background.mp3');
+    audio.volume = 0.5;
+    audio.addEventListener('ended', function() {
+        console.log("Audio ended");
+        this.currentTime = 0;
+        this.play();
+    }, false);
+    audio.play();
+`
+document.body.append(audioPlay)
 
 document
     .getElementById('countdownSequence')
@@ -202,14 +215,14 @@ function startGame() {
 
     // Set up lawn mower movement
     window.addEventListener('keydown', handleKeyDown, false);
-    var audio = new Audio('src/audio/background.mp3');
-    audio.volume = 0.5;
-    audio.addEventListener('ended', function() {
-        console.log("Audio ended");
-        this.currentTime = 0;
-        this.play();
-    }, false);
-    audio.play();
+    // var audio = new Audio('src/audio/background.mp3');
+    // audio.volume = 0.5;
+    // audio.addEventListener('ended', function() {
+    //     console.log("Audio ended");
+    //     this.currentTime = 0;
+    //     this.play();
+    // }, false);
+    // audio.play();
     setTimeout(() => {
         startTimer();
     }, 3000);
