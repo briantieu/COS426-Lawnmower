@@ -285,7 +285,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     camera.lookAt(lawnMower.position);
 
     // controls.update();
-
+    
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
 
