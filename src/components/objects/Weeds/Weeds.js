@@ -42,7 +42,7 @@ const fragmentShader = `
   varying vec2 vUv;
 
   void main() {
-  	vec3 baseColor = vec3( 0.3, 1.0, 0.4);
+  	vec3 baseColor = vec3( 0.23, 0.9, 0.23 );
     float clarity = ( vUv.y * 0.5 ) + 0.5;
     gl_FragColor = vec4( baseColor * clarity, 1 );
   }
@@ -75,6 +75,7 @@ class Weeds extends Group {
         super();
         this.grass = [];
         dummy = new Object3D();
+        this.powerupaudio = new Audio('src/audio/powerup.mp3')
 
         // Position and scale the grass blade instances randomly.
 
@@ -141,6 +142,7 @@ class Weeds extends Group {
             if (position.distanceTo(weedPosition) <= 2) {
                 this.parent.children[constants.LAWNMOWER_INDEX].scale.addScalar(0.2)
                 this.parent.children[constants.LAWNMOWER_INDEX].state.cutRadius += 0.2
+                this.powerupaudio.play()
 
                 setTimeout(() => {
                     this.parent.children[constants.LAWNMOWER_INDEX].scale.subScalar(0.2)

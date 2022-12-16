@@ -39,15 +39,15 @@ const vertexShader = `
     // here the displacement is made stronger on the blades tips.
     float dispPower = 1.0 - cos( uv.y * 3.1416 / 2.0 );
 
-    
+
     vec2 fractionalPos = 0.5 + mvPosition.xz / 25.0;
     fractionalPos.x = 0.5 + (mvPosition.x + 25.0) / 25.0;
     fractionalPos.y = 0.5 + (mvPosition.z + 25.0) / 25.0;
 
     //To make it seamless, make it a multiple of 2*PI
     fractionalPos *= 2.0 * 3.14159;
-  
-    //Wind is sine waves in time. 
+
+    //Wind is sine waves in time.
     float index = (mvPosition.x + 25.0) + mvPosition.z;
     index = index - floor((index / 7.0)) * 7.0;
     float noise = 0.5 + 0.5 * sin(index + time);
@@ -57,10 +57,10 @@ const vertexShader = `
 
 	vec4 direction = normalize(vec4(sin(halfAngle), 0.0, -sin(halfAngle), cos(halfAngle)));
 
-    index = float(int(((mvPosition.x + (50.0 / 2.0)) / 1.0) * (50.0 / 1.0) + (mvPosition.z + (50.0 / 2.0)) / 1.0)) / 300.0; 
+    index = float(int(((mvPosition.x + (50.0 / 2.0)) / 1.0) * (50.0 / 1.0) + (mvPosition.z + (50.0 / 2.0)) / 1.0)) / 300.0;
 
     float random = (mvPosition.x + mvPosition.y) - floor((mvPosition.x + mvPosition.y) / 0.4) * 0.4;
-    
+
     index = index - floor((index / 5.0)) * 5.0;
     index = index / 15.0;
     mvPosition.z += random / 2.5 * sin(time + random * 3.0) * direction.z * ( 0.3 * dispPower );
@@ -101,7 +101,7 @@ var dummy;
 
 class Grass extends Group {
 
-    constructor(parent) {
+    constructor(parent, levelofdetail) {
         // Call parent Group() constructor
         super();
         this.clock = new Clock();
@@ -111,11 +111,11 @@ class Grass extends Group {
         dummy = new Object3D();
 
         // Position and scale the grass blade instances randomly.
-
+        console.log(levelofdetail)
         let index = 0;
         for (let x = -grid_width / 2 + (box_width / 2); x < grid_width / 2 - (box_width / 2); x += box_width) {
             for (let z = -grid_width / 2 + (box_width / 2); z < grid_width / 2 - (box_width / 2); z += box_width) {
-                const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
+                const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box * levelofdetail);
                 let x_pos = x + (Math.random() - 0.5) * box_width;
                 let z_pos = z + (Math.random() - 0.5) * box_width;
                 dummy.position.set(x_pos, 0, z_pos);
@@ -232,7 +232,7 @@ class Grass extends Group {
         return Math.round(percentCut * 1000);
     }
 
-    
+
     update(timestamp) {
       // Hand a time variable to vertex shader for wind displacement.
       leavesMaterial.uniforms.time.value = timestamp;
@@ -241,8 +241,8 @@ class Grass extends Group {
       //this.parent.requestAnimationFrame(this.parent.animate);
       //this.parent.renderer.render(this.parent.scene, this.parent.camera);
     };
-    
-    
+
+
 }
 
 export default Grass;

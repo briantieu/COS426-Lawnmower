@@ -44,7 +44,7 @@ const fragmentShader = `
   varying vec2 vUv;
 
   void main() {
-  	vec3 baseColor = vec3(0.5, 0.5, 0.5);
+  	vec3 baseColor = vec3(0.41, 0.45, 0.5);
     float clarity = ( vUv.y * 0.5 ) + 0.5;
     gl_FragColor = vec4( baseColor * clarity, 1 );
   }
@@ -72,6 +72,8 @@ class Rocks extends Group {
         // const dummy = new Object3D();
 
         // const instancedMesh = new InstancedMesh(geometry, leavesMaterial, instanceNumber);
+        this.rock1audio = new Audio('src/audio/rock1.mp3');
+        this.rock2audio = new Audio('src/audio/rock2.mp3');
         this.collisionCount = 0
         this.centerPoints = []
         this.radii = []
@@ -139,7 +141,7 @@ class Rocks extends Group {
     }
 
     collide(boundingBox) {
-      const lawnMower = this.parent.children[constants.LAWNMOWER_INDEX]
+      const lawnmower = this.parent.children[constants.LAWNMOWER_INDEX]
       const bBoxGeo = boundingBox.geometry
       const mWorld = boundingBox.matrixWorld
       const corners = [bBoxGeo.vertices[0].clone().applyMatrix4(mWorld), bBoxGeo.vertices[1].clone().applyMatrix4(mWorld), bBoxGeo.vertices[4].clone().applyMatrix4(mWorld), bBoxGeo.vertices[5].clone().applyMatrix4(mWorld)]
@@ -149,12 +151,15 @@ class Rocks extends Group {
         corners.every(corner => {
           // console.log(corner)
           if (this.centerPoints[i].distanceTo(new Vector3(corner.x, 0, corner.z)) <= this.radii[i]) {
-            // const newPosition = position.clone().sub(this.centerPoints[i]).normalize().multiplyScalar(this.radii[i] + constants.LAWNMOWER_RADIUS)
-            // const newPosition = this.parent.children[constants.LAWNMOWER_INDEX]
+
+            const cornerOffset = corner.clone().sub(this.centerPoints[i]).normalize().multiplyScalar(this.radii[i] /* + constants.LAWNMOWER_RADIUS */)
+            lawnmower.position.set(lawnmower.position.x + cornerOffset.x, lawnmower.position.y, lawnmower.position.z + cornerOffset.z)
             // const newPositionFlat = new Vector3(newPosition.x, 0, newPosition.z)
-            lawnMower.position.set(lawnMower.state.prevPosition.x, lawnMower.state.prevPosition.y, lawnMower.state.prevPosition.z);
+            // lawnmower.position.set(newPos.x, newPos.y, newPos.z);
+            if (Math.random() > 0.5) this.rock1audio.play()
+            else this.rock2audio.play()
             console.log("collision")
-            lawnMower.state.velocity = 0
+            lawnmower.state.velocity = 0
             this.collisionCount += 1
             return false;
           }

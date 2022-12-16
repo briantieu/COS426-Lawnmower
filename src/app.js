@@ -13,6 +13,9 @@ require('./audio/countdownbeep.mp3')
 require('./audio/start.mp3')
 require('./audio/background.mp3')
 require('./audio/lawnmower.mp3')
+require('./audio/rock1.mp3')
+require('./audio/rock2.mp3')
+require('./audio/powerup.mp3')
 
 // Initialize core ThreeJS components
 let scene;
@@ -44,7 +47,7 @@ const starterScreen = `
         </p>
         <p style='text-align: left'><b style="font-size: 25px;">Gameplay Directions:</b>
             <ul style='margin-top: -10px; text-align: left'>
-                <li>Use the <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8593;</span> and <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8595;</span> keyboard keys to speed up, slown down, and reverse.</li>
+                <li>Use the <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8593;</span> and <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8595;</span> keyboard keys to speed up, slow down, and reverse.</li>
                 <li style="margin-top: 7px;">Use the <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8592;</span> and <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8594;</span> keyboard keys to change direction.</li>
                 <li style="margin-top: 7px;">Running into a rock will <span style="color: rgb(214, 134, 134); font-weight: bolder;">deduct</span> points.</li>
                 <li style="margin-top: 7px;">Mowing a weed (big grass) will give you a <span style="color: rgb(214, 134, 134); font-weight: bolder;">size boost</span>!</li>
@@ -56,8 +59,8 @@ const starterScreen = `
             <input style="width: 100px; height: 25px; display: inline;" type="number" value="10" id="difficulty" name="difficulty" min="1" max="20">
         </div>
         <div style="margin-top: 20px; display: flex; flex-direction: row; gap: 10px">
-            <label style="display: inline; width: fit-content;" for="levelofdetail">Level of Detail (1 - 3):</label>
-            <input style="width: 100px; height: 25px; display: inline;" type="number" value="3" id="levelofdetail" name="levelofdetail" min="1" max="3">
+            <label style="display: inline; width: fit-content;" for="levelofdetail">Level of Detail (1 - 5):</label>
+            <input style="width: 100px; height: 25px; display: inline;" type="number" value="3" id="levelofdetail" name="levelofdetail" min="1" max="5">
         </div>
         <br>
         <button id="countdownSequence" style="box-shadow: 0px 0px 10px 2px rgb(255, 255, 255); border: none; border-radius: 8px; margin-left: auto; margin-right: auto; cursor: pointer; background-color: rgb(142, 116, 76); color: white; border: none; width: fit-content; height: 50px; font-size: 25px;">
@@ -163,20 +166,23 @@ function countdownSequence() {
 
     let levelofdetailValue = parseInt(document.getElementById("levelofdetail").value);
     if (levelofdetailValue < 1) levelofdetailValue = 1;
-    else if (levelofdetailValue > 3) levelofdetailValue = 3;
+    else if (levelofdetailValue > 5) levelofdetailValue = 5;
     scene = new SeedScene(difficultyValue, levelofdetailValue);
 
     setTimeout(() => {
         document.getElementById('three').style.visibility = 'hidden';
         document.getElementById('two').style.visibility = 'visible';
+        countdownbeep.play()
     }, 1000);
     setTimeout(() => {
         document.getElementById('two').style.visibility = 'hidden';
         document.getElementById('one').style.visibility = 'visible';
+        countdownbeep.play()
     }, 2000);
     setTimeout(() => {
         document.getElementById('one').style.visibility = 'hidden';
         document.getElementById('go').style.visibility = 'visible';
+        countdownbeep.play()
     }, 3000);
     setTimeout(() => {
         startbeep.play();
@@ -285,7 +291,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     camera.lookAt(lawnMower.position);
 
     // controls.update();
-    
+
     renderer.render(scene, camera);
     scene.update && scene.update(timeStamp);
 
