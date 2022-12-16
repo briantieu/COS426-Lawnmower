@@ -44,7 +44,7 @@ const starterScreen = `
         </p>
         <p style='text-align: left'><b style="font-size: 25px;">Gameplay Directions:</b>
             <ul style='margin-top: -10px; text-align: left'>
-                <li>Use the <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8593;</span> and <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8595;</span> keyboard keys to speed up, slown down, and reverse.</li>
+                <li>Use the <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8593;</span> and <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8595;</span> keyboard keys to speed up, slow down, and reverse.</li>
                 <li style="margin-top: 7px;">Use the <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8592;</span> and <span style="font-weight: 20px; background-color: rgb(0, 0, 0); padding: 1px 8px 4px 8px; color: rgb(185, 151, 97); border-radius: 5px;">&#8594;</span> keyboard keys to change direction.</li>
                 <li style="margin-top: 7px;">Running into a rock will <span style="color: rgb(214, 134, 134); font-weight: bolder;">deduct</span> points.</li>
                 <li style="margin-top: 7px;">Mowing a weed (big grass) will give you a <span style="color: rgb(214, 134, 134); font-weight: bolder;">size boost</span>!</li>
