@@ -9,7 +9,7 @@ import * as constants from '../../../constants.js';
  *
  */
 
-const box_width = constants.GRASS_BLADE_BOX_WIDTH;
+var box_width = constants.GRASS_BLADE_BOX_WIDTH;
 const grid_width = constants.FIELD_WIDTH;
 const blades_per_box = constants.GRASS_BLADES_PER_BOX;
 const cut_box_width = constants.GRASS_CUT_BOX_WIDTH;
@@ -108,6 +108,8 @@ class Grass extends Group {
         this.startingBlades = 0;
         this.grassMap = {};
         this.grassCut = [];
+        let levels_of_detail = [1, 0.5, 0.4, 0.3, 0.25];
+        box_width = levels_of_detail[levelofdetail - 1];
         dummy = new Object3D();
 
         // Position and scale the grass blade instances randomly.
@@ -115,7 +117,7 @@ class Grass extends Group {
         let index = 0;
         for (let x = -grid_width / 2 + (box_width / 2); x < grid_width / 2 - (box_width / 2); x += box_width) {
             for (let z = -grid_width / 2 + (box_width / 2); z < grid_width / 2 - (box_width / 2); z += box_width) {
-                const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box * levelofdetail);
+                const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
                 let x_pos = x + (Math.random() - 0.5) * box_width;
                 let z_pos = z + (Math.random() - 0.5) * box_width;
                 dummy.position.set(x_pos, 0, z_pos);
@@ -195,11 +197,9 @@ class Grass extends Group {
         var cutIndicesBlades = [];
         for (let i = 0; i < cutIndices.length; i++) {
             let blades = this.grassMap[cutIndices[i]];
-            console.log(cutIndices[i], blades);
-            cutIndicesBlades.push([blades, cutIndices[i]]);
-        }
-        for (let j = 0; j < cutIndicesBlades.length; j++) {
-            let [blades, hashIndex] = [cutIndicesBlades[j][0], cutIndicesBlades[j][1]];
+            if (blades == undefined) {
+                continue;
+            }
             for (let i = 0; i < blades.length; i++) {
                 let [x, z, index] = [blades[i][0], blades[i][1], blades[i][2]];
                 let dist = Math.sqrt((x - position.x) * (x - position.x) + (z - position.z) * (z - position.z));
