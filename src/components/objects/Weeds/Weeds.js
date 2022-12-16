@@ -71,7 +71,7 @@ const fragmentShader = `
   varying vec2 vUv;
 
   void main() {
-  	vec3 baseColor = vec3( 0.23, 0.9, 0.23 );
+  	vec3 baseColor = vec3( 0.16, 0.74, 0.16 );
     float clarity = ( vUv.y * 0.5 ) + 0.5;
     gl_FragColor = vec4( baseColor * clarity, 1 );
   }

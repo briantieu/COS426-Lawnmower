@@ -32,21 +32,21 @@ class Fence extends Group {
 
     collide(position) {
         const lawnMower = this.parent.children[constants.LAWNMOWER_INDEX]
-        if (position.z > 25) {
-            lawnMower.z = 24;
-            lawnMower.state.velocity = 0;
+        if (position.z > 24) {
+            lawnMower.position.z = 24;
+            lawnMower.state.velocity = -0.05;
         }
-        if (position.z < -25) {
-            lawnMower.z = -24;
-            lawnMower.state.velocity = 0;
+        if (position.z < -24) {
+            lawnMower.position.z = -24;
+            lawnMower.state.velocity = -0.05;
         }
-        if (position.x > 25) {
-            lawnMower.x = 24;
-            lawnMower.state.velocity = 0;
+        if (position.x > 24) {
+            lawnMower.position.x = 24;
+            lawnMower.state.velocity = -0.05;
         }
-        if (position.x < -25) {
-            lawnMower.x = -24;
-            lawnMower.state.velocity = 0;
+        if (position.x < -24) {
+            lawnMower.position.x = -24;
+            lawnMower.state.velocity = -0.05;
         }
     }
 }

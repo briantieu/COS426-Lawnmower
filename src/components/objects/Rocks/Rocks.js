@@ -44,8 +44,8 @@ const fragmentShader = `
   varying vec2 vUv;
 
   void main() {
-  	vec3 baseColor = vec3(0.41, 0.45, 0.5);
-    float clarity = ( vUv.y * 0.5 ) + 0.5;
+  	vec3 baseColor = vec3(0.12, 0.15, 0.14);
+    float clarity = ( vUv.y * 3.0 ) + 0.2;
     gl_FragColor = vec4( baseColor * clarity, 1 );
   }
 `;
@@ -169,19 +169,6 @@ class Rocks extends Group {
 
     getRockPenalty() {
       return this.collisionCount * 10;
-    }
-
-    doesInclude(x_pos, z_pos) {
-      for (let i = 0; i < this.centerPoints.length; i++) {
-        const grassPos = new Vector3(x_pos, 0, z_pos)
-        let dist = grassPos.distanceTo(this.centerPoints[i])
-        if (dist < 5) {
-          console.log("Distance less than 5", dist);
-          console.log(this.radii[i]);
-        }
-        if (grassPos.distanceTo(this.centerPoints[i]) <= this.radii[i]) return true;
-        else return false;
-      }
     }
 }
 

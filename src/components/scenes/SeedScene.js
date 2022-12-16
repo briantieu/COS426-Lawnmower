@@ -31,7 +31,7 @@ class SeedScene extends Scene {
         const flower = new Flower(this);
         const lights = new BasicLights();
         const rocks = new Rocks(difficulty, levelofdetail);
-        const grass = new Grass(this, levelofdetail, rocks);
+        const grass = new Grass(this, levelofdetail);
         const trees = new Trees();
         const farm  = new Farm(this);
         const lawnMower = new LawnMower(this);
