@@ -34,19 +34,19 @@ class Fence extends Group {
         const lawnMower = this.parent.children[constants.LAWNMOWER_INDEX]
         if (position.z > 24) {
             lawnMower.position.z = 24;
-            lawnMower.state.velocity = -0.05;
+            lawnMower.state.velocity = 0;
         }
         if (position.z < -24) {
             lawnMower.position.z = -24;
-            lawnMower.state.velocity = -0.05;
+            lawnMower.state.velocity = 0;
         }
         if (position.x > 24) {
             lawnMower.position.x = 24;
-            lawnMower.state.velocity = -0.05;
+            lawnMower.state.velocity = 0;
         }
         if (position.x < -24) {
             lawnMower.position.x = -24;
-            lawnMower.state.velocity = -0.05;
+            lawnMower.state.velocity = 0;
         }
     }
 }
