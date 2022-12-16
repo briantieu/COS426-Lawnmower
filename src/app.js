@@ -42,7 +42,7 @@ const div = document.createElement('div');
 const starterScreen = `
 <div style="border-radius: 20px; padding: 20px; margin-left: auto; margin-right: auto; height: fit-content; width: 50vw; color: white; font-size: 20px; background-color: rgb(53, 67, 53); box-shadow: 0px 0px 40px 8px black">
     <div id="starterScreen" style="align-content: center; display: flex; flex-direction: column;">
-        <p style='font-family: Cursive;  color: rgb(255, 255, 255); font-weight: bolder; font-size: 45px; padding-top: 10px; margin: 0;'>
+        <p style='font-family: Arial;  color: rgb(255, 255, 255); font-weight: bolder; font-size: 45px; padding-top: 10px; margin: 0;'>
             Welcome to Lawnmower Lunacy
         </p>
         <p style='text-align: left'><b style="font-size: 25px;">Gameplay Directions:</b>
