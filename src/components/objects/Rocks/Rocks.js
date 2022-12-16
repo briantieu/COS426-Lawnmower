@@ -1,4 +1,4 @@
-import { Group, Mesh, ShaderMaterial, DoubleSide, Vector3, Object3D, Geometry, PlaneGeometry, SphereGeometry, InstancedMesh, ConeGeometry, CylinderGeometry, Sphere} from 'three';
+import { Group, Mesh, ShaderMaterial, DoubleSide, Vector3, Object3D, Geometry, PlaneGeometry, SphereGeometry, InstancedMesh, ConeGeometry, CylinderGeometry, Sphere, Vector2} from 'three';
 // import * as THREE from 'three';
 import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -169,6 +169,14 @@ class Rocks extends Group {
 
     getRockPenalty() {
       return this.collisionCount * 10;
+    }
+
+    doesInclude(x_pos, z_pos) {
+      for (let i = 0; i < this.centerPoints.length; i++) {
+        const grassPos = new Vector3(x_pos, 0, z_pos)
+        if (grassPos.distanceTo(this.centerPoints[i]) <= this.radii[i]) return true;
+        else return false;
+      }
     }
 }
 
