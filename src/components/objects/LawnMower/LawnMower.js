@@ -10,7 +10,6 @@ class LawnMower extends Group {
         super();
 
         this.state = {
-            prevPosition: new Vector3(0,0,0),
             velocityScale: 0.01,
             maxSpeed: 0.24,
             velocity: 0,
@@ -62,7 +61,6 @@ class LawnMower extends Group {
             this.parent.children[constants.WEEDS_INDEX].cut(this.position, this.state.cutRadius) // cut weeds
             this.parent.children[constants.FENCE_INDEX].collide(this.position);
         }
-        this.state.prevPosition = this.position;
     }
 
     move(event) {

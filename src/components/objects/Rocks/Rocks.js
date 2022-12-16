@@ -139,7 +139,7 @@ class Rocks extends Group {
     }
 
     collide(boundingBox) {
-      const lawnMower = this.parent.children[constants.LAWNMOWER_INDEX]
+      const lawnmower = this.parent.children[constants.LAWNMOWER_INDEX]
       const bBoxGeo = boundingBox.geometry
       const mWorld = boundingBox.matrixWorld
       const corners = [bBoxGeo.vertices[0].clone().applyMatrix4(mWorld), bBoxGeo.vertices[1].clone().applyMatrix4(mWorld), bBoxGeo.vertices[4].clone().applyMatrix4(mWorld), bBoxGeo.vertices[5].clone().applyMatrix4(mWorld)]
@@ -149,12 +149,13 @@ class Rocks extends Group {
         corners.every(corner => {
           // console.log(corner)
           if (this.centerPoints[i].distanceTo(new Vector3(corner.x, 0, corner.z)) <= this.radii[i]) {
-            // const newPosition = position.clone().sub(this.centerPoints[i]).normalize().multiplyScalar(this.radii[i] + constants.LAWNMOWER_RADIUS)
-            // const newPosition = this.parent.children[constants.LAWNMOWER_INDEX]
+
+            const cornerOffset = corner.clone().sub(this.centerPoints[i]).normalize().multiplyScalar(this.radii[i] /* + constants.LAWNMOWER_RADIUS */)
+            lawnmower.position.set(lawnmower.position.x + cornerOffset.x, lawnmower.position.y, lawnmower.position.z + cornerOffset.z)
             // const newPositionFlat = new Vector3(newPosition.x, 0, newPosition.z)
-            lawnMower.position.set(lawnMower.state.prevPosition.x, lawnMower.state.prevPosition.y, lawnMower.state.prevPosition.z);
+            // lawnmower.position.set(newPos.x, newPos.y, newPos.z);
             console.log("collision")
-            lawnMower.state.velocity = 0
+            lawnmower.state.velocity = 0
             this.collisionCount += 1
             return false;
           }
