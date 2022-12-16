@@ -101,7 +101,7 @@ var dummy;
 
 class Grass extends Group {
 
-    constructor(parent, levelofdetail) {
+    constructor(parent, levelofdetail, rocks) {
         // Call parent Group() constructor
         super();
         this.clock = new Clock();
@@ -120,6 +120,10 @@ class Grass extends Group {
                 const instancedMesh = new InstancedMesh(geometry, leavesMaterial, blades_per_box);
                 let x_pos = x + (Math.random() - 0.5) * box_width;
                 let z_pos = z + (Math.random() - 0.5) * box_width;
+                if (rocks.doesInclude(x_pos, z_pos)) {
+                    console.log("Found a rock");
+                    continue;
+                }
                 dummy.position.set(x_pos, 0, z_pos);
                 dummy.scale.setScalar(0.2 + Math.random() * 0.5);
                 dummy.rotation.y = Math.random() * Math.PI;

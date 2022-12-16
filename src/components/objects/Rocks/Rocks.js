@@ -174,6 +174,11 @@ class Rocks extends Group {
     doesInclude(x_pos, z_pos) {
       for (let i = 0; i < this.centerPoints.length; i++) {
         const grassPos = new Vector3(x_pos, 0, z_pos)
+        let dist = grassPos.distanceTo(this.centerPoints[i])
+        if (dist < 5) {
+          console.log("Distance less than 5", dist);
+          console.log(this.radii[i]);
+        }
         if (grassPos.distanceTo(this.centerPoints[i]) <= this.radii[i]) return true;
         else return false;
       }

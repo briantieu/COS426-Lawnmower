@@ -30,11 +30,11 @@ class SeedScene extends Scene {
         const land = new Land();
         const flower = new Flower(this);
         const lights = new BasicLights();
-        const grass = new Grass(this, levelofdetail);
+        const rocks = new Rocks(difficulty, levelofdetail);
+        const grass = new Grass(this, levelofdetail, rocks);
         const trees = new Trees();
         const farm  = new Farm(this);
         const lawnMower = new LawnMower(this);
-        const rocks = new Rocks(difficulty, levelofdetail);
         const weeds = new Weeds(this);
         const fence = new Fence();
         // If this following line is changed, need to change constants.js to reflect it
