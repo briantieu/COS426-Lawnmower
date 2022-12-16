@@ -19,6 +19,7 @@ require('./audio/powerup.mp3')
 
 // Initialize core ThreeJS components
 let scene;
+let gameStillGoing = true;
 const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
 let difficultyRegistered = false;
@@ -42,7 +43,7 @@ const div = document.createElement('div');
 const starterScreen = `
 <div style="border-radius: 20px; padding: 20px; margin-left: auto; margin-right: auto; height: fit-content; width: 50vw; color: white; font-size: 20px; background-color: rgb(53, 67, 53); box-shadow: 0px 0px 40px 8px black">
     <div id="starterScreen" style="align-content: center; display: flex; flex-direction: column;">
-        <p style='font-family: Arial;  color: rgb(255, 255, 255); font-weight: bolder; font-size: 45px; padding-top: 10px; margin: 0;'>
+        <p style='font-family: Cursive;  color: rgb(255, 255, 255); font-weight: bolder; font-size: 45px; padding-top: 10px; margin: 0;'>
             Welcome to Lawnmower Lunacy
         </p>
         <p style='text-align: left'><b style="font-size: 25px;">Gameplay Directions:</b>
@@ -210,8 +211,11 @@ function startGame() {
     document.getElementById('timer').style.visibility = 'visible';
     document.getElementById('score').style.visibility = 'visible';
     const handleKeyDown = (event) => {
-        scene.getObjectByName('lawnMower').move(event);
+        if (gameStillGoing) {
+            scene.getObjectByName('lawnMower').move(event);
+        }
     };
+    gameStillGoing = true;
 
     // Set up lawn mower movement
     window.addEventListener('keydown', handleKeyDown, false);
@@ -259,6 +263,8 @@ function checkSecond(sec) {
 }
 
 function endGame() {
+    gameStillGoing = false;
+    scene.getObjectByName('lawnMower').endGame();
     document.getElementById("startScreen").style.display = 'flex';
     document.getElementById("resultsScreen").style.display = 'flex';
     document.getElementById("starterScreen").style.display = 'none';
@@ -310,7 +316,9 @@ const onAnimationFrameHandler = (timeStamp) => {
 
     updateScore(scene.children[2].getScore() - scene.children[6].getRockPenalty());
     }
-    window.requestAnimationFrame(onAnimationFrameHandler);
+    if (gameStillGoing) {
+        window.requestAnimationFrame(onAnimationFrameHandler);
+    }
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
