@@ -141,10 +141,10 @@ class Rocks extends Group {
     collide(boundingBox) {
       const corners = [boundingBox.geometry.vertices[0], boundingBox.geometry.vertices[1], boundingBox.geometry.vertices[4], boundingBox.geometry.vertices[5]]
 
-      console.log(corners)
+      // console.log(corners)
       for (let i = 0; i < this.centerPoints.length; i++) {
         corners.every(corner => {
-          console.log(corner)
+          // console.log(corner)
           if (this.centerPoints[i].distanceTo(new Vector3(corner.x, 0, corner.z)) <= this.radii[i]) {
             // const newPosition = position.clone().sub(this.centerPoints[i]).normalize().multiplyScalar(this.radii[i] + constants.LAWNMOWER_RADIUS)
             // const newPosition = this.parent.children[constants.LAWNMOWER_INDEX]

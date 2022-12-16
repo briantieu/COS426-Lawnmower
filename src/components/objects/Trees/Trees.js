@@ -4,7 +4,10 @@ import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUti
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import * as constants from '../../../constants.js';
+import MODEL from './scene.gltf';
 
+require('./scene.bin');
+require('./textures/leafes_Mat.001_baseColor.png');
 /**
  * SOURCE: https://jsfiddle.net/felixmariotto/hvrg721n/
  *
@@ -86,39 +89,43 @@ class Trees extends Group {
     constructor(parent) {
         // Call parent Group() constructor
         super();
+        const loader = new GLTFLoader();
 
         const dummy = new Object3D();
 
-        const geometry = new Geometry()
-        const cylinder = new CylinderGeometry(0.5, 0.5, 3, 10, 1)
-        geometry.merge(cylinder)
-        const cone1 = new ConeGeometry(2.4, 5, 10, 1, false)
-        cone1.translate(0,4,0)
-        geometry.merge(cone1)
-        const cone2 = new ConeGeometry(2.1, 4, 10, 1, false)
-        cone2.translate(0,5,0)
-        geometry.merge(cone2)
-        const cone3 = new ConeGeometry(2, 3, 10, 1, false)
-        cone3.translate(0,5.5,0)
-        geometry.merge(cone3)
+        // const geometry = new Geometry()
+        // const cylinder = new CylinderGeometry(0.5, 0.5, 3, 10, 1)
+        // geometry.merge(cylinder)
+        // const cone1 = new ConeGeometry(2.4, 5, 10, 1, false)
+        // cone1.translate(0,4,0)
+        // geometry.merge(cone1)
+        // const cone2 = new ConeGeometry(2.1, 4, 10, 1, false)
+        // cone2.translate(0,5,0)
+        // geometry.merge(cone2)
+        // const cone3 = new ConeGeometry(2, 3, 10, 1, false)
+        // cone3.translate(0,5.5,0)
+        // geometry.merge(cone3)
 
-        // geometry.translate(0, 0, 0); // move grass blade geometry lowest point at 0.
-        const instancedMesh = new InstancedMesh(geometry, leavesMaterial, instanceNumber);
+        this.name = 'tree';
+        loader.load(MODEL, (gltf) => {  
+          // Position and scale the grass blade instances randomly.
+          for (let i = 1; i <= instanceNumber; i++) {
+            gltf.scene.children[i] = gltf.scene.children[0].clone();
 
-        // Position and scale the grass blade instances randomly.
-        for (let i = 0; i < instanceNumber; i++) {
-          let [x, z] = [(Math.random() - 0.5) * 2 * outer_size, (Math.random() - 0.5) * 2 * outer_size];
-          if (x <= inner_size && x >= -inner_size && z <= inner_size + 40 && z >= -inner_size) {
-            i--;
-            continue;
+            let [x, z] = [(Math.random() - 0.5) * 2 * outer_size, (Math.random() - 0.5) * 2 * outer_size];
+            if (x <= inner_size && x >= -inner_size && z <= inner_size + 40 && z >= -inner_size) {
+              i--;
+              continue;
+            }
+            let max = 40;
+            let min = 30;
+
+            gltf.scene.children[i].position.set(x, 0, z);
+            gltf.scene.children[i].scale.setScalar(Math.floor(Math.random() * (max - min + 1) + min));
           }
-          dummy.position.set(x, 0, z);
-          dummy.scale.setScalar(2 + Math.random());
-          dummy.rotation.y = Math.random() * Math.PI;
-          dummy.updateMatrix();
-          instancedMesh.setMatrixAt(i, dummy.matrix);
-        }
-        super.add(instancedMesh);
+          gltf.scene.children.shift();
+          this.add(gltf.scene)
+        });
     }
 }
 
