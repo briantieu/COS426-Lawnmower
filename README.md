@@ -1,34 +1,34 @@
-#Lawnmower Lunacy
+# Lawnmower Lunacy
 Henry Knoll, Silas Mohr, Brian Tieu, Brett Zeligson
 
-##Abstract
+## Abstract
 Welcome to Lawnmower Lunacy! Our project is the ultimate lawnmower game, where the goal is to maximize your lawn mowing score by cutting as much grass as possible, while avoiding rocks, in under a minute. In completing this project, we accomplished our minimum viable product of creating a game where user controls could determine the direction and speed of a lawnmower cutting grass. Extending this MVP, we added rock obstacles to the lawn, a pleasing backdrop of a farm, tall weeds that result in lawnmower size boosts, options for changing difficulty and detail, grass that sways in the wind, and optimizations to our data structures and algorithms. We believe we had a successful outcome and are super happy with the final product we created. 
 
-##Introduction
+## Introduction
 As Princeton students, we miss the relaxing afternoons in the sun spent mowing our backyards, smelling the fresh cut grass, and listening to country music—so we decided to make a game for it! Lawnmower Lunacy is the quintessential lawnmower game for those of us craving the satisfaction of mowing a neatly-cut lawn. The purpose is simple: cut as much of the lawn as you can in one minute, while maximizing the points you collect by avoiding rocks and cutting tall grass for a size boost. You’ll feel right at home, as if you were in your own backyard!
 
-###Goal
+### Goal
 Our goal was to create a lawnmower game that took in user input for lawnmower speed, direction, and mechanisms for cutting grass. After reaching this goal, we moved into implementing additional features including texture mapping, an on-screen control panel, collision detection, sound, vertex/fragment shaders, simulated dynamics, a countdown, level of detail control, and multiple views, as well as other features to enhance gameplay and the user experience. 
 
 The target audience for our project encompasses gamers of all ages and skill-levels. The simple interface, controls, and lawn mowing idea were all purposefully designed to make the game accessible, so even those who have never picked up a game before can enjoy the serene calmness that comes with mowing virtual grass. Additionally, the use of semi-realistic graphics of the outdoors and soothing music functions to make the game a relaxing and engaging experience for all.
 
-###Previous Work
+### Previous Work
 Most examples of lawnmower games are either overly complex, meant to be used as realistic simulators of lawnmowers in the real world, or very simple, with uncomplicated graphics, collisions, and user interfaces. Thus, we aim to fill this gap by creating a game that has more complicated features such as collisions with multiple objects, a user interface, and semi-realistic graphics.
 
-###Approach
+### Approach
 In designing our approach for the project, our first step involved determining the components that would define our MVP. We defined these components to be a three-dimensional lawn terrain and lawnmower with functionality to cut grass as the user steers the lawnmower with the use of arrow keys. Once these steps were completed, we implemented the rest of features described in this document that satisfied the feature requirements of the project and further enhanced gameplay and user experience. Also, it is important to note that throughout the development process we split the work between us such that one member focused on the lawn, another on the lawn mower, another on the obstacles, and the last on game design.
 
-##Additional Features Implemented
-Texture Mapping
-Multiple Views
-On-Screen Control Panel
-Vertex/Fragment Shaders
-Sounds
-Collision Detection
-Simulated Dynamics
-Level of Detail Control
+## Additional Features Implemented
+- Texture Mapping
+- Multiple Views
+- On-Screen Control Panel
+- Vertex/Fragment Shaders
+- Sounds
+- Collision Detection
+- Simulated Dynamics
+- Level of Detail Control
 
-##Methodology
+## Methodology
 For the On-Screen Control Panel, which consisted of the timer, score, screen view toggle, start page, and end page, we found that the most practical implementation would be to add a <div> element via the app.js file and then use the innerHTML property to write custom HTML that would be displayed. Additionally, in order to add custom styling, inline CSS was utilized. The advantage of using this implementation involved being able to build out an appealing interface However, one disadvantage involved the HTML and CSS being very verbose, leading to us using more clever logic later in the game in order to properly start off the game. Additionally, one issue we encountered involved rendering the scene while taking into account the user input for difficulty level and level of detail. Originally, we rendered the scene when the site loaded, but we ultimately had to delay scene rendering until after input was attained, so that the proper difficulty and level of detail were present in the game.
 
 For the grass in the game, we started off with a basic implementation from JSfiddle linked here. This JSfiddle includes a patch of grass as a single Instanced Mesh where each blade of grass is in a random position between the bounds of the patch. Originally, we created our lawn with multiple Instanced Meshes corresponding to different subpatches of grass. In this implementation, whenever the lawnmower went over one of these subpatches, all of the grass in the subpatch would get removed. This theoretically made sense if the subpatches were small enough, but didn’t look great in practice. We wanted to find a way to calculate precise Collision Detection where individual blades would be accounted for, instead of patches. To do this, we made each blade its own Instanced Mesh. To make sure that the grass still looked like a lawn, we divided our lawn into a grid where each grid box was a section where an individual grass blade would be placed inside randomly. The sizes of these grid subsections are proportional to the level of detail control input. Larger sizes sacrifice density of grass for faster rendering. We used spatial hashing to keep track of where each of the blades were. The XZ plane of grass was broken up into spaces corresponding to numbered indices, so that with O(1) lookup time we could find the blades within a given space. Therefore, spatial hashing allowed us to efficiently find which blades of grass needed to be removed according to the center of the lawnmower and a radius surrounding it (like a spinning blade on a real lawnmower). This avoided iterating over each blade of grass, which would’ve been massively inefficient, resulting in serious lag.
@@ -51,18 +51,18 @@ The camera has Multiple Views, a chase camera that follows behind the lawnmower 
 
 An important measure of success for us was the game loading speed and the frame rate of the game. In order to accommodate different types of computers and users, we implemented a Level of Detail control that varied the granularity of the rock design and the number of grass blades rendered. Lower levels result in much faster rendering, whereas higher levels result in enhanced rendering, potentially introducing lag.
 
-##Results
+## Results
 We ran the game on multiple devices to ensure that it functioned well on a wide range of processing units. Our results indicate that a wide variety of machines are able to play our game at a sufficiently high frame rate, provided they choose the correct Level of Detail setting for their machine.
 
 Another way we measured success is the level of engagement and fun had by players. We measured this by allowing several test users to play our game, and offer us verbal feedback. We received highly positive feedback, with many users praising our graphics, high quality of collisions, and engaging gameplay mechanics. To this end, we believe our game is successful.
 
-##Discussion
+## Discussion
 We feel that the approach we took was very productive. We divided tasks well and rarely ran into issues when we were working concurrently. Furthermore, through completing this project, we not only learned the complexities of ThreeJS and 3D game development, but also the best ways to prioritize and delegate tasks to complete a large-scale project in a short time frame. 
 
-##Conclusion
+## Conclusion
 Looking back on our finished project, we feel that we achieved our goal completely, creating an engaging, well-designed lawnmower game that possesses all the functionalities of our planned MVP and our additional features. In the case that we continue developing this project, our next steps would be to add dynamic obstacles, for example squirrels running around the lawn, to make the game more interesting. Another next step could be to further optimize the code base such that there is no lag for higher detail renderings. Currently, there are no issues that we know of in the code that need to be revisited in the future. In the long-term future, this could be a great opportunity for a virtual reality game!
 
-##Contributions
+## Contributions
 Brett: My contributions to the project included all of the user interface design, the game design (including the countdown timer, scoring, toggle button for camera view, and play again functionality), as well as implementing the farm, the trees, difficulty for the user (adjusting the number of rocks based on user input), and all the texture mapping for the scene aside from that which appears on the fence.
 
 Brian: I focused on the generation, placement, and collisions with objects generated in the scene, including the rocks and the tall grass. I implemented the random generation of various rock geometries as well as their collision hitboxes, patches of tall grass and the handling of scaling the lawnmower and its mowing radius upon collision, and sound effects for each of these. I also implemented a Level of Detail control, which affects the number of polygons for objects within the lawn.
@@ -71,15 +71,15 @@ Silas: I focused on the lawnmower, camera, and the fences. I implemented the law
 
 Henry: I focused on building out the grass, whether that was implementing the spatial hashing for collision detection, the swaying of the grass via the vertex shaders, different generation levels for different detail inputs, or the disappearance of grass after being cut. I also worked on making sure the audio files worked well, including looping and matching. This was an especially rewarding project for me, and I thoroughly enjoyed it.
 
-##Works Cited
+## Works Cited
 
-###Technologies
+### Technologies
 - HTML
 - CSS
 - JavaScript
 - ThreeJS
 
-###External Resources
+### External Resources
 - Codepen.io
 - Stack Overflow
 - Blender
@@ -88,7 +88,7 @@ Henry: I focused on building out the grass, whether that was implementing the sp
 - Textures.com
 - Flaticon.com
 
-###Visual Assets
+### Visual Assets
 - Ground Texture
   - Aerial view of rice, agricultural fields in countryside of Taiwan in spring season. Rural area. Farm pattern natural texture background. Stock Photo | Adobe Stock
 - Barn
@@ -100,7 +100,7 @@ Henry: I focused on building out the grass, whether that was implementing the sp
 - Favicon
   - https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffree-icon%2Flawn-mower_3056971&psig=AOvVaw38Ux9280Bf0gA9G40hdZpv&ust=1671315536697000&source=images&cd=vfe&ved=0CBAQjhxqFwoTCNiu-duV__sCFQAAAAAdAAAAABAD
 
-###Audio Assets
+### Audio Assets
 - Rock Collision 1
   - https://www.zapsplat.com/music/large-stone-drop-on-forest-floor-with-a-thump-1/
 - Rock Collision 2 
@@ -113,7 +113,7 @@ Henry: I focused on building out the grass, whether that was implementing the sp
   - https://pixabay.com/sound-effects/game-start-6104/
   - https://pixabay.com/sound-effects/start-13691/
 
-###Inspiration Credit
+### Inspiration Credit
 - Inspiration for Rock Generation
   - https://blog.mozvr.com/procedural-geometry-low-poly-clouds/
 - Inspiration for Camera Movement
